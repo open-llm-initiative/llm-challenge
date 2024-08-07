@@ -5,7 +5,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
 def index():
-    return render_template('render.html')  
+    return render_template('challenge.html')  
 
 def get_sample(sample_id):
   dynamodb = boto3.client('dynamodb')

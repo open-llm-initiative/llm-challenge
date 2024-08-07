@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Creates a DynamoDB table for challenges_prompts
+
+Resources:
+  ChallengesPromptsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: challenges_prompts
+      BillingMode: PAY_PER_REQUEST # Consider using PAY_PER_REQUEST for more flexibility
+      AttributeDefinitions:
+        - AttributeName: prompt_id
+          AttributeType: N
+      KeySchema:
+        - AttributeName: prompt_id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 50
+        WriteCapacityUnits: 5
