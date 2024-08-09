@@ -51,6 +51,10 @@ body {
     align-self: flex-end;
     max-width: 75%;
 }
+.rating_form{
+    text-align: center;
+}
+
 .rating {
     display: flex;
     justify-content: center;
@@ -102,10 +106,11 @@ body {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 50px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    text-align: center;
 }
 .submit:hover {
     background-color: #45a049;
