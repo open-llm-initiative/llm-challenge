@@ -95,13 +95,10 @@ body {
     transition: opacity 0.3s, visibility 0.3s;
 }
 .rating span::before {
-    content: '\u2606';
     color: black;
 }
-.rating span.active::before, .rating span.active ~ span::before {
-    content: '\u2605';
-}
-.rate-another {
+
+.submit {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -110,9 +107,10 @@ body {
     cursor: pointer;
     font-size: 16px;
 }
-.rate-another:hover {
+.submit:hover {
     background-color: #45a049;
 }
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;
@@ -133,19 +131,36 @@ body {
 .scroll-arrow {
     position: fixed;
     bottom: 20px;
-    right: 20px;
-    font-size: 32px;
+    font-size: 21px;
     cursor: pointer;
     background: #4CAF50;
     color: white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    border-radius: 60%;
+    width: 35px;
+    height: 35px;
     display: flex;
-    align-items: center;
     justify-content: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.scroll-arrow.hidden {
+#scroll-arrow.hidden {
     display: none;
+}
+
+.partnership-banner {
+    position: fixed;
+    text-align: right;
+    bottom: 10px;
+    right: 10px;
+    color: black;
+    padding: 10px 10px 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 10%;
+}
+
+.partnership-banner img{
+    width: 12%; /* or any custom size */
+    height: 12%; 
+    padding: 5px 5px;
 }
