@@ -17,8 +17,8 @@ pip install -r requirements.txt
 echo "Configuring environment variables..."
 if [ -f .env ]; then
     export $(cat .env | xargs)
+    echo "Setup complete. Your environment is ready."
 else
     echo ".env file not found! Please create one with your developer keys."
 fi
 
-echo "Setup complete. Your environment is ready."

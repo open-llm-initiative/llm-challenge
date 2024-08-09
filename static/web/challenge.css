@@ -41,7 +41,7 @@ body {
 .prompt-context p.context-text {
     font-style: italic;
 }
-.response {
+.response_container {
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #ddd;
@@ -49,8 +49,14 @@ body {
     background-color: #f9f9f9;
     text-align: left;
     align-self: flex-end;
+    min-width: 75%;
     max-width: 75%;
 }
+
+.response{
+    display: none;
+}
+
 .rating_form{
     text-align: center;
 }
@@ -116,23 +122,6 @@ body {
     background-color: #45a049;
 }
 
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
-    .prompt-context, .response {
-        padding: 8px;
-        margin: 8px 0;
-    }
-    .rate-another {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-    .rating span {
-        font-size: 20px;
-        margin: 0 3px;
-    }
-}
 .scroll-arrow {
     position: fixed;
     bottom: 20px;
@@ -168,4 +157,59 @@ body {
     width: 12%; /* or any custom size */
     height: 12%; 
     padding: 5px 5px;
+}
+
+.progress-container {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    border: none;
+    padding-bottom: 10px;
+}
+
+.progress {
+    width: 200px;
+    height: 10px;
+    background-color: #4a90e2;
+    border-radius: 0%;
+    animation: pulse 1.3s infinite ease-in-out;
+    transform-origin: left
+}
+
+.progress:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.progress:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    .prompt-context, .response_container {
+        padding: 8px;
+        margin: 8px 0;
+    }
+    .rate-another {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    .rating span {
+        font-size: 20px;
+        margin: 0 3px;
+    }
 }

@@ -43,7 +43,7 @@ def initialize_hugging_face_llm_pipeline(model_name, model_id):
             tokenizer = AutoTokenizer.from_pretrained(model_id)
             model = AutoModelForCausalLM.from_pretrained(model_id)
 
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = "mps" if torch.cuda.is_available() else "cpu"
         model_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer, device=device)
     except: 
         print(f"Error loading {model_name}: {str(e)}")

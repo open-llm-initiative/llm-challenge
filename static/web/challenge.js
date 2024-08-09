@@ -22,7 +22,7 @@ function scrollToBottom() {
 
 function checkScroll() {
     const scrollArrow = document.getElementById('scroll-arrow');
-    if ((window.innerHeight + window.scrollY) +1 < document.body.scrollHeight) {
+    if ((window.innerHeight + window.scrollY) + 50 < document.body.scrollHeight) {
         scrollArrow.classList.remove('hidden');
     } else {
         scrollArrow.classList.add('hidden');
@@ -39,4 +39,17 @@ function validateForm() {
 }
 
 window.addEventListener('resize', checkScroll);
+window.addEventListener('scroll', checkScroll);
 document.addEventListener('DOMContentLoaded', checkScroll);
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for 2 seconds
+    setTimeout(() => {
+        const progressContainer = document.getElementById('progress-container');
+        progressContainer.style.display = 'none';
+
+        const response = document.getElementsByClassName("response");
+        response[0].style.display = "inline";
+        checkScroll(); //if the page size increases because we are displaying the prompt, we need to show the scroll-arrow again. 
+    }, 1500); // 1500 milliseconds = 1.5 seconds
+});
