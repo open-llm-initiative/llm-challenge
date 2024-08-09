@@ -169,7 +169,7 @@ body {
 
 .progress {
     width: 200px;
-    height: 10px;
+    height: 9px;
     background-color: #4a90e2;
     border-radius: 0%;
     animation: pulse 1.3s infinite ease-in-out;

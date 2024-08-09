@@ -43,3 +43,4 @@ typing_extensions==4.12.2
 tzdata==2024.1
 urllib3
 Werkzeug==3.0.3
+accelerate==0.33.0 
