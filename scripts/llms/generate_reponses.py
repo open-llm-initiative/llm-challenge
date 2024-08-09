@@ -28,7 +28,7 @@ anthropic_models = {
 
 openai_models = {
     "OpenAI GPT 3.5-Turbo": {"api_key": os.environ['OPENAI_API_KEY'], "model": "gpt-3.5-turbo"},
-    "OpenAI GPT4-o": {"api_key": os.environ['OPENAI_API_KEY'], "model": "gpt-4"}
+    "OpenAI GPT4-o": {"api_key": os.environ['OPENAI_API_KEY'], "model": "gpt-4o"}
 }
 
 # Initialize a HuggingFace pipeline
