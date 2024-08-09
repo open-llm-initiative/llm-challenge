@@ -25,7 +25,7 @@ def get_sample_prompt(prompt_id):
           TableName="challenge_prompts",
           Key={
               "prompt_id": {
-                  'N': sample_id
+                  'N': prompt_id
               }
           }
       )

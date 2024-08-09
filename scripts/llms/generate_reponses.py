@@ -3,6 +3,7 @@ import openai
 import anthropic
 import torch
 import pandas as pd
+import platform
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from openai import OpenAI
 
@@ -43,7 +44,13 @@ def initialize_hugging_face_llm_pipeline(model_name, model_id):
             tokenizer = AutoTokenizer.from_pretrained(model_id)
             model = AutoModelForCausalLM.from_pretrained(model_id)
 
-        device = "mps" if torch.cuda.is_available() else "cpu"
+        device = "cpu"
+        if torch.cuda.is_available():
+            if platform.system() == 'Darwin': ##handle the local mac use case
+                devce = "mps"
+            else:
+                device = "cuda"   
+
         model_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer, device=device)
     except: 
         print(f"Error loading {model_name}: {str(e)}")
@@ -56,7 +63,7 @@ def get_hugging_face_llm_text_completion(pipeline, prompt, context):
     Generate a response using a Hugging Face model.
     """
     prompt_to_pipeline = f"Prompt: {prompt}\n Context:{context}\n #delimit#"
-    response = pipeline(prompt_to_pipeline, max_new_tokens=340, temperature=0.7, top_p=0.5, num_return_sequences=1, do_sample=True)
+    response = pipeline(prompt_to_pipeline, max_new_tokens=340, temperature=0.5, top_p=0.5, num_return_sequences=1, do_sample=True)
     return response[0]['generated_text'].split("#delimit#")[1]
 
 
@@ -71,7 +78,7 @@ if __name__ == '__main__':
     print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace")
     print("")
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
-    qwen_pipeline = initialize_hugging_face_llm_pipeline("Qwen2-0.5B","Qwen/Qwen2-0.5B")
+    qwen_pipeline = initialize_hugging_face_llm_pipeline("Qwen2-1.5B","Qwen/Qwen2-1.5B")
 
     for row in challenge_prompt_df.itertuples():
         if row.Index == 2:
