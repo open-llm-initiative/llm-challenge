@@ -67,13 +67,15 @@ body {
     margin: 20px 0;
     position: relative;
 }
+
 .rating span {
     font-size: 24px;
     cursor: pointer;
     margin: 0 5px;
     position: relative;
 }
-.rating span:hover::after, .rating span.active::after {
+
+.rating span:hover::after, .rating span.active:hover::after {
     content: attr(data-tooltip);
     position: absolute;
     bottom: 100%;
@@ -88,6 +90,7 @@ body {
     opacity: 1;
     visibility: visible;
 }
+
 .rating span::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -104,9 +107,11 @@ body {
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
 }
+
 .rating span::before {
     color: black;
 }
+
 
 .submit {
     background-color: #4CAF50;
