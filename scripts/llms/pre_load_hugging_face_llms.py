@@ -17,7 +17,7 @@ if __name__ == '__main__':
             offload_buffers=True
         )
         
-         # Clear GPU cache
+         # Clear GPU cache after loading the model to allow for the other models to load correctly. 
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
 
