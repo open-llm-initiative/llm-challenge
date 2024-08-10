@@ -7,17 +7,7 @@ import platform
 import accelerate
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from openai import OpenAI
-from enum import Enum
-
-class HuggingFaceModels(Enum):
-    Qwen2_0_5B = "Qwen/Qwen2-0.5B"
-    Qwen2_0_5B_Instruct =  "Qwen/Qwen2-0.5B-Instruct"
-    Qwen2_1_5B =  "Qwen/Qwen2-1.5B"
-    Gemma_2_2B =  "google/gemma-2-2b"
-    Qwen2_7B_Instruct = "Qwen/Qwen2-7B-Instruct"
-    Phi_3_small_128k_instruct = "microsoft/Phi-3-small-128k-instruct"
-    Qwen2_72B = "Qwen/Qwen2-72B"
-    Meta_Llama_3_1_70B = "meta-llama/Meta-Llama-3.1-70B"
+from hf_models_enum import HuggingFaceModels
 
 anthropic_models = {
     "Claude 3 Haiku": {"api_key": os.environ['ANTHROPIC_API_KEY'], "model": "claude-3-haiku"},
@@ -29,6 +19,36 @@ openai_models = {
     "OpenAI GPT4-o": {"api_key": os.environ['OPENAI_API_KEY'], "model": "gpt-4o"}
 }
 
+
+def call_openai_model(model_name, prompt, context):
+    client = OpenAI(
+            api_key=openai_models[model_name]['api_key'],
+    )
+    response = client.chat.completions.create(
+                model=openai_models[model_name]['model'],
+                temperature = 1,
+                messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"{context}\n\Prompt: {prompt}"}
+            ]
+    )
+    return response.choices[0].message.content
+
+def call_anthropic_model(model_name, prompt, context):
+    client = anthropic.Anthropic(api_key = anthropic_models[model_name]['api_key'])
+    prompt = f"{context}\n\nQuestion: {prompt}"
+    response = client.completions.create(
+        model=anthropic_models[model_name]['model'],
+        prompt=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"{context}\n\Prompt: {prompt}"}
+            ],
+        max_tokens_to_sample=512,
+        stop_sequences=[anthropic.e]
+    )
+    return response.completion.strip()
+
+#helper class to simplify pipeline creation and usage.
 class CustomChatPipelineHuggingFace:
     def __init__(self, model_name, device="cuda"):
         # Initialize the model and tokenizer
@@ -39,7 +59,7 @@ class CustomChatPipelineHuggingFace:
             device_map="auto",
             token=hf_token,
             trust_remote_code=True
-        ).to(device)
+        )
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token, trust_remote_code=True)
         self.device = device
 
@@ -98,8 +118,7 @@ class CustomChatPipelineHuggingFace:
         return response
 
 if __name__ == '__main__':
-    print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace")
-    print("")
+    print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
     gemma_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Gemma_2_2B.value)
 

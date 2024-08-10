@@ -1,2 +1,3 @@
 venv
 .env
+/scripts/llms/__pycache__
