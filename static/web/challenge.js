@@ -1,9 +1,11 @@
 function rate(stars) {
     const spans = document.querySelectorAll('.rating span');
+    document.getElementById('rating_value').value = stars;
     spans.forEach((span, index) => {
         if (index < stars) {
             span.innerHTML = '&#9733;'; // filled star
             span.classList.add('active');
+
         } else {
             span.innerHTML = '&#9734;'; // empty star
             span.classList.remove('active');
@@ -30,7 +32,7 @@ function checkScroll() {
 }
 
 function validateForm() {
-    const ratingValue = document.getElementById('rating-value').value;
+    const ratingValue = document.getElementById('rating_value').value;
     if (!ratingValue) {
         alert("Please select a rating before submitting.");
         return false; // Prevent form submission

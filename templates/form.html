@@ -1,7 +1,7 @@
 <div class= "rating_form">
-<form id="rating" action="/submit" method="POST">
+<form id="rating_form" action="/submit" method="POST" onsubmit="return validateForm()">
     <div class="rating">
-        <input type="hidden" name="rating" id="rating-value" value="">
+        <input type="hidden" name="rating_for_prompt" id="rating_value" value="">
         <input type="hidden" name="prompt_id" id="prompt_id" value="{{ prompt_id }}">
         <span data-tooltip="Bad" name="rating" value ="1" onclick="rate(1)">&#9734;</span>
         <span data-tooltip="Poor" name="rating" value ="2" onclick="rate(2)">&#9734;</span>
