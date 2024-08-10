@@ -161,7 +161,7 @@ body {
 
 .progress-container {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex-direction: column;
     border: none;
     padding-bottom: 10px;
@@ -169,7 +169,7 @@ body {
 
 .progress {
     width: 200px;
-    height: 9px;
+    height: 14px;
     background-color: #4a90e2;
     border-radius: 0%;
     animation: pulse 1.3s infinite ease-in-out;
