@@ -83,7 +83,7 @@ class CustomChatPipelineHuggingFace:
     def get_model_name(self):
         return self.model.config._name_or_path
 
-    def __call__(self, prompt, max_new_tokens=512):
+    def __call__(self, prompt, max_new_tokens=340):
         # Create the chat messages
         messages = [
             {"role": "system", "content": "You are a helpful assistant."},
@@ -127,11 +127,15 @@ if __name__ == '__main__':
     resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
     gemma_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Gemma_2_2B.value)
 
-    for row in challenge_prompt_df.itertuples():
-        prompt_id = row.Index + get_model_name.get_model_name()
-        prompt_reponse = gemma_pipeline(row.prompt + "   " + row.context)
+    for index, row in challenge_prompt_df.iterrows():
+        prompt_to_llm = row.prompt
+        if not pd.isna(row.context):
+            prompt_to_llm+= " " + row.context
+        
+        prompt_response = gemma_pipeline(prompt_to_llm)
+        prompt_id = gemma_pipeline.get_model_name() + "_" + str(index)
         resposne_df.add(row, prompt_id, prompt_response)
-        print("Response:", resposne)
+        print("Response:", prompt_id, prompt_response, "\n")
 
     resposne_df.to_csv()
 
