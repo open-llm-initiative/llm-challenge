@@ -1,0 +1,334 @@
+category,task,complexity,prompt,context,rating,prompt_response_id,generated_response
+Information and Summarization,Factual Comprehension (True/false questions),0,Is the weather going to be sunny tomorrow in Seattle? ,"Here's a general outlook for Seattle over the next week. Tuesday, August 6 to Monday, August 12 Tuesday: Sunny and pleasant. Highs in the mid-70s. Wednesday: Sunny and warmer. Highs in the upper 70s. Thursday: Sunny and hot. Highs in the mid-80s.Friday: Partly cloudy with a slight chance of showers. Highs in the low 70s. Saturday: Partly cloudy and mild. Highs in the mid-70s. Sunday: Partly cloudy with a chance of showers. Highs in the upper 60s. Monday: Partly cloudy and cool. Highs in the mid-60s.",binary (yes/no),google/gemma-2-2b_0,"
+
+The weather is going to be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the next week.  The high temperatures will be in the mid-70s.  The low temperatures will be in the mid-50s.  The weather will be sunny and pleasant for the"
+Information and Summarization,Factual Comprehension (Detail-oriented questions),1,How many characters are there in this story? ,"Once upon a time, there was an old sow with three little pigs. As she didn't have enough food for all of them, she sent them off to seek their fortunes. The first little pig was rather lazy and built his house of straw. The second pig was a bit more industrious and constructed his house of sticks. But it was the third little pig who showed true wisdom. He built his house of bricks, a sturdy and dependable structure. These three little pigs, each with their distinct personalities and building choices, would soon find themselves facing a big, bad wolf.",likert,google/gemma-2-2b_1," The first pig, with his straw house, was the first to be attacked by the wolf. The wolf blew his house down with his loud, angry roar. The second pig, with his stick house, was next. The wolf blew his house down with his loud, angry roar. The third pig, with his brick house, was the last to be attacked. The wolf blew his house down with his loud, angry roar. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house, was the only one left standing. The wolf was so angry that he blew down all three houses. The third pig, with his brick house,"
+Information and Summarization,Inferential Comprehension (Making predictions),2,What will happen to the lost puppy in the forest? ,"A young puppy, full of boundless energy and curiosity, has wandered away from its human companion and into the heart of a dense forest. The once familiar world of home has been replaced by a labyrinth of towering trees, shadowy undergrowth, and unfamiliar scents. The puppy, accustomed to the safety and warmth of human care, now faces a daunting array of challenges. From the perils of wild animals to the threats of hunger, thirst, and exposure, the forest presents a harsh and unforgiving environment. The puppy's survival will depend on its inherent instincts, physical abilities, and the unpredictable nature of its surroundings.",likert,google/gemma-2-2b_2," Will it find its way back to its human companion, or will it succumb to the dangers of the forest? The story of the lost puppy in the forest is a tale of resilience, determination, and the indomitable spirit of a young creature. It serves as a reminder of the importance of responsible pet ownership and the need to provide our furry companions with the care and guidance they deserve."
+Information and Summarization,Inferential Comprehension (Cause and effect),3,Why did the king decide to go to war? ,"The kingdom of Eldoria has enjoyed a long peace. Its borders have been secure, and its people prosperous. However, tensions with the neighboring empire of Zypheria have been simmering for years. Recent border skirmishes and the mysterious disappearance of Eldorian trade ships have heightened these tensions. Economic sanctions imposed by Zypheria have crippled Eldoria's trade, leading to widespread discontent among the populace. A nationalist movement has emerged, demanding retribution for the nation's perceived humiliation.",likert,google/gemma-2-2b_3," The king, recognizing the growing threat, has decided to take action. He believes that a show of force will deter Zypheria from further aggression and restore Eldoria's reputation. The king has assembled a formidable army, composed of the best soldiers from across the kingdom. He has also enlisted the aid of powerful mages and sorcerers, who will provide the army with magical support. The king's goal is to send a clear message to Zypheria: Eldoria is a formidable opponent, and any further aggression will be met with swift and decisive force. The king's decision to go to war has been met with mixed reactions within Eldoria. Some see it as a necessary step to protect the nation's interests, while others fear the potential for conflict and destruction. The king, however, remains resolute in his belief that war is the only way to restore Eldoria's honor and protect its people."
+Information and Summarization,Inferential Comprehension (Implied meaning),4,What are the potential consequences of a group of teenagers finding a hidden portal to another dimension?,"The small town of Willow Creek, known for its serene and picturesque environment, was nestled among rolling hills and lush forests. It seemed like a place where time stood still. However, this tranquility masked an ancient secret buried deep within the woods—a mysterious, otherworldly anomaly. <br> A diverse group of teenagers—a curious science enthusiast named Alex, a free-spirited artist named Luna, a practical athlete named Jake, and a book-loving introvert named Emily—came together through their mutual love for exploration. Seeking adventure and a break from the routine of small-town life, they often ventured into the woods on secret expeditions. Unbeknownst to them, their explorations would lead them to uncover a hidden portal, an event that would forever alter their lives. <br> One crisp autumn afternoon, the friends discovered a shimmering, translucent portal hidden at the base of a massive oak tree in a secluded clearing. The portal's ethereal glow captivated them, and despite their fears, curiosity compelled them to investigate further. Debating the risks and rewards, they decided to step through the portal, embarking on an extraordinary journey that would uncover ancient secrets, challenge their understanding of reality, and test their bond as friends.",likert,google/gemma-2-2b_4," <br> As they stepped through the portal, they found themselves in a vast, otherworldly landscape. The air was thick with an otherworldly energy, and the sounds of distant voices and strange machinery filled the air. The friends were immediately overwhelmed by the unfamiliar surroundings, but they quickly adapted to their new environment. <br> The portal led them to a bustling city, a metropolis of towering skyscrapers and bustling streets. The city was filled with a strange, otherworldly energy, and the friends were immediately overwhelmed by the unfamiliar surroundings. They quickly adapted to their new environment, however, and began to explore the city. <br> As they explored the city, they encountered a variety of strange creatures and beings. Some were friendly, while others were hostile. The friends were forced to use their wits and skills to survive in this strange new world. <br> As they explored the city, they encountered a variety of strange creatures and beings. Some were friendly, while others were hostile. The friends were forced to use their wits and skills to survive in this strange new world. <br> As they explored the city, they encountered a variety of strange creatures and beings. Some were friendly, while others were hostile. The friends were forced to use their wits and skills to survive in this strange new world. <br> As they explored the city, they encountered a variety of strange creatures and beings. Some were friendly, while others were hostile. The friends were forced to use their wits and skills to survive in this strange new world. <br> As they explored the city, they encountered a variety of strange creatures and beings. Some were friendly, while others were hostile. The friends were forced"
+Information and Summarization,Critical Thinking and Analysis (Summarizing),5,Write a short summary of the main events in the story. ,"In the quiet town of Willow Creek, four teenagers—Alex, Luna, Jake, and Emily—bond over their love for adventure. On one of their explorations in the nearby woods, they stumble upon a hidden portal at the base of an ancient oak tree. Despite their fears, curiosity drives them to step through the portal, transporting them to another dimension. <br> In this new world, they face a series of extraordinary events and challenges, uncovering ancient secrets and encountering strange beings. Their journey tests their courage, ingenuity, and the strength of their friendship. As they navigate this unfamiliar dimension, they must find a way back home while understanding the profound implications of their discovery. <br> Ultimately, their adventure leads to personal growth and a deeper bond among them, forever changing their lives and their perception of reality.",likert,google/gemma-2-2b_5,
+Information and Summarization,Critical Thinking and Analysis (Comparing and contrasting),6,How are the two main characters similar and different?,"In the bustling city of Brookside, Alex and Luna are two of the four teenagers who discover a hidden portal in an abandoned warehouse. Alex, a curious science enthusiast, is analytical and logical, always seeking to understand the world through experiments and data. His motivation comes from a desire to uncover the unknown and make sense of the mysteries around him. <br> Luna, on the other hand, is a free-spirited artist driven by creativity and emotion. She views the world through a lens of beauty and wonder, often expressing her thoughts and feelings through her artwork. Her motivation lies in the pursuit of inspiration and the desire to explore the depths of her imagination. <br> Despite their different approaches, both characters share a profound curiosity and a thirst for adventure. They are united by their willingness to step into the unknown and face challenges head-on. While Alex approaches problems with a methodical mindset, Luna relies on intuition and creativity. Their contrasting perspectives often complement each other, allowing them to navigate the new dimension they discover while growing and learning from their unique strengths.",likert,google/gemma-2-2b_6," <br> As the story unfolds, Alex and Luna's journey takes them through a series of unexpected twists and turns. They encounter new friends, face formidable foes, and uncover hidden secrets. Their bond grows stronger as they navigate the challenges of the new dimension together, relying on each other's strengths and support. <br> In the end, Alex and Luna's journey serves as a reminder that true strength lies in embracing one's unique qualities and working together to overcome obstacles. Their story teaches us that by combining our strengths and perspectives, we can achieve remarkable things and unlock the full potential of our abilities."
+Information and Summarization,Critical Thinking and Analysis (Evaluating arguments),7,"Evaluate the arguments presented by Alex and Luna about whether to continue exploring the new dimension despite the risks. Whose reasoning is more convincing, and why?","In the vibrant city of Brookside, four adventurous teenagers—Alex, Luna, Jake, and Emily—discover a hidden portal in an abandoned warehouse. Drawn by curiosity and a thirst for adventure, they step through and find themselves in a fantastical world like no other. <br> This new dimension is a place where gravity is optional, time flows like a lazy river, and the sky is a kaleidoscope of ever-changing colors. They encounter floating islands connected by shimmering bridges of light, forests with trees that sing, and creatures straight out of a fairytale. <br> However, as their journey progresses, Alex and Luna find themselves in a spirited debate. Alex, the science whiz, is thrilled by the endless possibilities for discovery. ""Imagine the breakthroughs in science and technology!"" he exclaims. ""We've navigated so many challenges already; we can handle more. The risks are worth the knowledge we could gain."" <br> Luna, the free-spirited artist, sees things differently. ""This place is beautiful but unpredictable,"" she argues. ""We've had some close calls, and our safety should come first. We already have amazing stories to tell. Let's not push our luck and risk losing everything.""",likert,google/gemma-2-2b_7," <br> As the debate intensifies, Alex and Luna find themselves at odds. They both have valid points, but their perspectives differ. Alex's scientific curiosity drives him to explore, while Luna's caution stems from her desire to protect their newfound home. <br> The other two teenagers, Jake and Emily, find themselves caught in the middle. They admire Alex's determination but also respect Luna's concerns. They realize that both perspectives have merit, and they must find a way to balance the risks and rewards of their journey. <br> In the end, Alex and Luna come to a compromise. They agree to continue exploring the new dimension, but with a heightened sense of caution. They establish safety protocols, such as regular check-ins with their friends back home, and they take turns leading the group. <br> As they navigate the challenges of this new world, Alex and Luna continue to learn and grow. They discover that their differences are not a barrier but a source of strength. Together, they face the unknown with courage and determination, always keeping their friends and their home in Brookside close to their hearts."
+Information and Summarization,Textual Analysis (Identifying literary devices),8,Identify the metaphor used in the second paragraph,"In the bustling city of Brookside, four teenagers—Alex, Luna, Jake, and Emily—stumble upon a hidden portal in an abandoned warehouse. Drawn by curiosity, they step through and find themselves in a world unlike any they've ever known. <br>. In this new dimension, they discover a realm where reality bends and shifts like a dream. The landscape is a patchwork quilt of floating islands, each one stitched together by threads of light. The sky above them is an artist's canvas, constantly changing colors and shapes as if painted by an invisible hand. Time flows differently here, moving like a river that meanders and loops back on itself. <br> As they explore this strange and beautiful place, they encounter creatures that defy logic and landscapes that challenge their perceptions. Alex, ever the scientist, tries to make sense of it all, while Luna sees it as a living masterpiece. Together, they navigate this wondrous world, their bond growing stronger with each new discovery. The journey tests their courage, creativity, and their ability to adapt to an ever-changing reality.",likert,google/gemma-2-2b_8," <br> As they venture deeper into this surreal realm, they realize that they are not alone. A mysterious force guides them, whispering secrets and offering guidance. They learn that this world is not just a dream but a reflection of their own desires and fears. <br> Through their adventures, they confront their own fears, embrace their individuality, and discover the power of unity. They realize that they are not alone in this world, but rather a part of something greater. <br> As they return to their own reality, they carry with them the lessons learned in this dreamlike realm. They carry the knowledge that they can shape their own destiny, that they have the power to create their own reality. They carry the memories of this extraordinary journey, forever changed by the experience. <br> In the bustling city of Brookside, the four teenagers find themselves in a world where reality bends and shifts like a dream. They discover a realm where time flows differently, where creatures defy logic, and where they are not alone. Through their adventures, they confront their fears, embrace their individuality, and discover the power of unity. They carry the lessons learned in this dreamlike realm, forever changed by the experience."
+Information and Summarization,Textual Analysis (Determining author's purpose),9,What is the author's purpose for writing this article? (Requires understanding the context in which the article was written),"In an age where digital technology dominates everyday life, an article titled ""The Lost Art of Handwritten Letters"" appears in a popular lifestyle magazine. The author, Emma Hartfield, opens with a nostalgic reflection on the joy of receiving handwritten letters. She recounts her childhood memories of exchanging letters with her grandmother and the excitement of waiting for the mail. <br> Emma contrasts these personal experiences with today's fast-paced digital communication, where emails and instant messages prevail. She argues that while modern technology offers convenience and speed, it lacks the emotional depth and personal touch of handwritten correspondence. Through vivid descriptions and personal anecdotes, she highlights the unique qualities of handwritten letters: the effort involved, the individuality of each person's handwriting, and the tangible connection to the sender. <br> The article also delves into the historical significance of letter writing, citing famous correspondences between historical figures and the impact these letters had on their relationships and on history itself. Emma emphasizes that handwritten letters are a form of art, a way to express thoughts and emotions in a more deliberate and meaningful manner. <br> In addition to her nostalgic and historical perspectives, Emma offers practical advice for those who wish to revive the practice. She suggests starting small, perhaps with thank-you notes or birthday cards, and gradually incorporating letter writing into one's routine. She also encourages readers to see letter writing as a way to slow down and appreciate the act of thoughtful communication. <br> Throughout the article, Emma's tone is both persuasive and reflective, urging readers to consider the value of handwritten letters in an increasingly digital world. By the end of the article, it is clear that her purpose is to inspire a renewed appreciation for this lost art and to encourage readers to reconnect with others in a more personal and meaningful way.",likert,google/gemma-2-2b_9,
+Creative Writing and Content Generation,Basic Generation,0,Write a few sentences about the nature of planets in our solar systems,,likert,google/gemma-2-2b_10,".
+
+A 100-W lightbulb is placed in a cylinder equipped with a moveable piston. The lightbulb is turned on for 0.01 hour. During this time, the temperature of the gas in the cylinder increases by $21^{\circ} \mathrm{C}$. The gas does 2.1 $\times 10^{3}$ J of work on its surroundings, and the energy is required by the bulb. Find the final temperature of the gas.
+
+A 100-W lightbulb generates $95 \mathrm{~W}$ of heat, which is dissipated through a glass bulb that has a radius of $3.0 \mathrm{~cm}$ and is $0.70 \mathrm{~mm}$ thick. What is the difference in temperature between the inner and outer surfaces of the glass?
+
+A 100-W lightbulb generates $95 \mathrm{~W}$ of heat, which is dissipated through a glass bulb that has a radius of $3.0 \mathrm{~cm}$ and is $0.70 \mathrm{~mm}$ thick. What is the difference in temperature between the inner and outer surfaces of the glass?"
+Creative Writing and Content Generation,Basic Rephrasing,1,"Rephrase the sentence ""The sky is blue, and the meadows are bright yellow"" in five different ways.",,likert,google/gemma-2-2b_11,"
+
+In the following sentences, underline the verb in parentheses that agrees with the collective noun.
+
+<strong>Example 1</strong>. The audience <em>(is, $\underline{\text{are}}$)</em> slowly finding their seats in the theater.
+
+The jury <em>(is, are)</em> deliberating the case.
+
+In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) good time.
+
+The new movie <em>The Matrix</em> is <em>(real, really)</em> exciting.
+
+In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) busy weekend.
+
+The new movie <em>The Matrix</em> is <em>(real, really)</em> exciting."
+Creative Writing and Content Generation,Simple Storytelling,2,Write a short story about a robot who wants to be a chef.,,likert,google/gemma-2-2b_12," Use the words <em>robot, chef,</em> and <em>cook</em> in your story.
+
+In each of the following sentences, underline the correct pronoun in parentheses. Then, identify the use of the pronoun by writing above it <em>S</em> for subject, <em>PN</em> for <em>predicate nominative</em>, <em>DO</em> for direct object, <em>IO</em> for <em>indirect object</em>, <em>OP</em> for <em>object of a preposition</em>, or <em>A</em> for <em>appositive</em>.
+
+<strong>Example 1</strong>. My best friends, Tammy and <em>(her, $\overset{\textit{\color{#c34632}{A}}}{{\underline{\text{she}}}}$)</em>, gave me a surprise party on my birthday.
+
+The person who won the contest was <em>(he, him)</em>.
+
+In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) good time.
+
+The <em>(real, really)</em> good news is that the weather is going to be nice this weekend.
+
+In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) busy weekend.
+
+The <em>(real, really)</em> busy part of the day was the afternoon."
+Creative Writing and Content Generation,Form-Based Creation,3,Write a limerick about a lazy lion.,,likert,google/gemma-2-2b_13,"
+
+A $100 \mathrm{~N}$ force, directed at an angle $\theta$ above a horizontal floor, is applied to a $25.0 \mathrm{~kg}$ chair sitting on the floor. Assume that the coefficient of static friction between chair and floor is $0.420$. Does the chair slide or remain at rest if $\theta$ is $30.0^{\circ}$ ?
+
+A 100-kg mass is pulled along a frictionless surface by a horizontal force $\vec{F}$ such that its acceleration is $a_1=6.00 \mathrm{~m} / \mathrm{s}^2$ (Figure 5-66). A 20.0-kg mass slides along the top of the 100-kg mass and has an acceleration of $a_2=4.00 \mathrm{~m} / \mathrm{s}^2$. (It thus slides backward relative to the 100-kg mass.)
+
+$(a)$ What is the frictional force exerted by the 100-kg mass on the $20.0-\mathrm{kg}$ mass?
+
+A 100-kg mass is pulled along a frictionless surface by a horizontal force $\vec{F}$ such that its acceleration is $a_1=6.00 \mathrm{~m} / \mathrm{s}^2$. A 20.0-kg mass slides along the top of the $100-\mathrm{kg}$ mass and has an acceleration of $a_2=4.00 \mathrm{~m}"
+Creative Writing and Content Generation,Creative Writing,4,Write a poem about the beauty of nature.,,likert,google/gemma-2-2b_14,"
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature.
+
+Write a poem about the beauty of nature."
+Creative Writing and Content Generation,Worldbuilding,5,Create a magical creature and its habitat.,,likert,google/gemma-2-2b_15,"
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+You can use this activity to help your child learn about the different parts of a habitat and how they work together.
+
+You can also use this activity to help your child learn about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts of a habitat and how they work together.
+
+This is a great way to get your child to think about the different parts"
+Creative Writing and Content Generation,Scriptwriting,6,Write a dialogue between a detective and a suspect.,,likert,google/gemma-2-2b_16," The detective is trying to determine whether the suspect is lying. Use the words in the box to help you.
+
+$\begin{array}{lll} \text { suspect } & \text { alibi } & \text { guilty } \\ \text { innocent } & \text { guilty } & \text { innocent } \\ \text { guilty } & \text { innocent } & \text { guilty } \\ \text { innocent } & \text { guilty } & \text { innocent } \\ \text { guilty } & \text { guilty } & \text { guilty } \\ \text { innocent } & \text { guilty } & \text { innocent } \end{array} $
+
+detective: $\rule{1cm}{0.15mm}$
+
+Write the letter for the correct definition of the italicized vocabulary word.
+
+The $recluse$ was a man who lived alone in a remote cabin in the mountains.
+(A) person who is very shy
+(B) person who is very friendly
+(C) person who is very religious
+(D) person who is very wealthy
+
+In the following sentence, underline the correct modifier given in parentheses. Example 1. Coach Leonard is the (louder, $\underline{\text{loudest}}$) person I’ve ever met.
+
+The <em>(more, most)</em> important thing is to have fun.
+
+In the following sentence, underline the correct modifier given in parentheses. Example 1. Coach Leonard is the (louder, $\underline{\text{loudest}}$) person I’ve ever met.
+
+The <em>(more, most)</em>"
+Creative Writing and Content Generation,Complex Storytelling,7,Write a short story with a surprise ending about a time traveler.,,likert,google/gemma-2-2b_17,"
+
+The following sentence may contain errors in the use of verbs. Cross out each incorrect verb form, and write the correct form above it. If the sentence is already correct, write <em>C</em> before the item number.
+
+I have been reading about the history of the United States.
+
+In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) good time.
+
+The <em>(real, really)</em> good news is that the weather is going to be nice this weekend.
+
+In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) good time.
+
+The <em>(real, really)</em> good news is that the weather is going to be nice this weekend."
+Creative Writing and Content Generation,Content Strategy,8,Create a social media campaign to promote a new sustainable fashion brand.,,likert,google/gemma-2-2b_18,"
+
+The brief:
+
+* Create a social media campaign for a new sustainable fashion brand.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK.
+* The campaign should be for a new sustainable fashion brand that is launching in the UK"
+Creative Writing and Content Generation,Creative Problem Solving,9,Develop a new product idea to solve the problem of food waste.,,likert,google/gemma-2-2b_19,"
+
+The following table shows the number of cell phone subscriptions in the United States for selected years.
+
+a. Find the linear regression line for the data.
+
+b. Use the linear regression line to predict the number of cell phone subscriptions in 2018.
+
+c. Use the linear regression line to predict the number of cell phone subscriptions in 2020.
+
+d. Use the linear regression line to predict the number of cell phone subscriptions in 2025.
+
+e. Use the linear regression line to predict the number of cell phone subscriptions in 2030.
+
+f. Use the linear regression line to predict the number of cell phone subscriptions in 2035.
+
+g. Use the linear regression line to predict the number of cell phone subscriptions in 2040.
+
+h. Use the linear regression line to predict the number of cell phone subscriptions in 2045.
+
+i. Use the linear regression line to predict the number of cell phone subscriptions in 2050.
+
+j. Use the linear regression line to predict the number of cell phone subscriptions in 2055.
+
+k. Use the linear regression line to predict the number of cell phone subscriptions in 2060.
+
+l. Use the linear regression line to predict the number of cell phone subscriptions in 2065.
+
+m. Use the linear regression line to predict the number of cell phone subscriptions in 2070.
+
+n. Use the linear regression line to predict the number of cell phone subscriptions in 2075.
+
+o. Use the linear regression line to predict"
+Task and Problem Solving,Basic Information Retrieval,0,What is the population of Tokyo?,"Tokyo, Japan's vibrant capital, is renowned for being one of the most densely populated cities in the world. The city's vast metropolitan area includes 23 special wards, home to approximately 9.7 million residents. Beyond these central wards, Tokyo Metropolis also encompasses western suburban areas and rural regions. The suburban areas, including cities like Hachioji and Machida, add about 4 million more residents. Additionally, the rural and island areas, while less densely populated, contribute another 200,000 people to the total. <br> With a total population surpassing that of many countries, Tokyo's dynamic urban and suburban landscape reflects its status as a global megacity. The overall population of Tokyo Metropolis, combining the central wards, suburban areas, and rural regions, showcases the immense scale and constant activity that define life in this extraordinary city.",binary (yes/no),google/gemma-2-2b_20,
+Task and Problem Solving,Simple Calculations,1,Calculate the tip for a dinner.,"The main course costs $25, the appetizer costs $15, and the dessert costs $10, with a tip rate of 20%.",binary (yes/no),google/gemma-2-2b_21,"
+
+Step 1
+1 of 2
+
+The tip is $20\%$ of the total bill.
+
+$\begin{align*} \text{Tip} &= \text{Total bill} \times \text{Tip rate} \\ &= \$25 + \$15 + \$10 + \$2.50 \\ &= \$52.50 \end{align*} $
+
+Result
+2 of 2
+
+$\$52.50 $"
+Task and Problem Solving,Definition or Explanation,2,Explain the concept of compound interest.,,likert,google/gemma-2-2b_22,"
+
+The following information is available for the first month of operations of Bahadir Company, a manufacturer of mechanical pencils:
+
+$\begin{array}{lrr} \text{Sales}&\$\hspace{5pt}792,000\\ \text{Gross profit}&{462,000}\\ \text{Cost of goods manufactured}&{396,000}\\ \text{Indirect labor}&{171,600}\\ \text{Factory depreciation}&{26,400}\\ \text{Materials purchased}&{244,200}\\ \text{Total manufacturing costs for the period}&{455,400}\\ \text{Materials inventory, ending}&{33,000}\\ \end{array} $
+
+Using the above information, compute the (<em>b</em>) direct materials cost per unit of mechanical pencils.
+
+The following data were taken from the financial statements of Hunter Inc. for December 31, 2014 and 2013:
+
+$\begin{array}{lrr} & \mathbf{2 0 1 4} & \mathbf{2 0 1 3} \\ \hline \text { Current assets } & \$ 39,600,000 & \$ 33,500,000 \\ \text { Current liabilities } & 27,400,000 & 23,900,000 \end{array} $
+
+b. What conclusions can be drawn from these data concerning the relationship"
+Task and Problem Solving,Problem Solving,3,How can I fix a clogged kitchen sink?,,likert,google/gemma-2-2b_23,"
+
+[User 0001]
+
+I have a kitchen sink that is clogged. I have tried using a plunger, but it doesn't seem to be working. I've also tried using a drain snake, but that didn't work either. Any suggestions on how to fix this?
+
+[User 0002]
+
+You can try using a drain cleaner. If that doesn't work, you can try using a plunger. If that doesn't work, you can try using a drain snake.
+
+[User 0003]
+
+I would try using a plunger. If that doesn't work, you can try using a drain snake. If that doesn't work, you can try using a drain cleaner.
+
+[User 0004]
+
+I would try using a plunger. If that doesn't work, you can try using a drain snake. If that doesn't work, you can try using a drain cleaner.
+
+[User 0005]
+
+I would try using a plunger. If that doesn't work, you can try using a drain snake. If that doesn't work, you can try using a drain cleaner.
+
+[User 0006]
+
+I would try using a plunger. If that doesn't work, you can try using a drain snake. If that doesn't work, you can try using a drain cleaner.
+
+[User 0007]
+
+I would try using a plunger. If that doesn't work, you can try using a drain snake. If that doesn't work, you can try using"
+Task and Problem Solving,Decision Making,4,Should I invest in stocks or real estate?,,likert,google/gemma-2-2b_24,"
+
+[User 0001]
+
+I'm 25 years old and I'm looking to invest in stocks or real estate. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better. I'm looking to invest $10000. I'm not sure which one is better."
+Task and Problem Solving,Planning and Organization,5,Create a travel itinerary for a week-long trip to Paris.,"Sophia and Michael, a couple in their early 30s, are planning a week-long trip to Paris from April 10 to April 17. They have a budget of $3,000 for the entire trip. Both are art and history enthusiasts, love fine dining, and enjoy leisurely strolls through picturesque neighborhoods. They plan to visit iconic landmarks like the Eiffel Tower and the Louvre, explore charming districts like Montmartre, and savor French cuisine in local bistros. They also want to include a day trip to the Palace of Versailles. Sophia and Michael are looking for a balanced itinerary that combines sightseeing, cultural experiences, and relaxation.",likert,google/gemma-2-2b_25, They want to make the most of their time in Paris while staying within their budget.
+Task and Problem Solving,Data Analysis,6,Analyze customer reviews to identify product improvement areas.,"Sophia's team is tasked with analyzing customer reviews for the popular wireless earbuds, SoundMax Pro. They need to identify areas for product improvement based on user feedback. Here are a few reviews:",likert,google/gemma-2-2b_26,"
+
+""I love these earbuds! They are so comfortable and the sound quality is amazing. I can't believe how much better they sound than my old earbuds. I would definitely recommend these to anyone looking for a great pair of wireless earbuds.""
+
+""These earbuds are great! The sound quality is amazing and they are so comfortable to wear. I love that they are wireless and I can take them with me anywhere. I would definitely recommend these to anyone looking for a great pair of wireless earbuds.""
+
+""I love these earbuds! They are so comfortable and the sound quality is amazing. I can't believe how much better they sound than my old earbuds. I would definitely recommend these to anyone looking for a great pair of wireless earbuds.""
+
+""I love these earbuds! They are so comfortable and the sound quality is amazing. I can't believe how much better they sound than my old earbuds. I would definitely recommend these to anyone looking for a great pair of wireless earbuds.""
+
+""I love these earbuds! They are so comfortable and the sound quality is amazing. I can't believe how much better they sound than my old earbuds. I would definitely recommend these to anyone looking for a great pair of wireless earbuds.""
+
+""I love these earbuds! They are so comfortable and the sound quality is amazing. I can't believe how much better they sound than my old earbuds. I would definitely recommend these to anyone looking for a great pair of wireless earbuds.""
+
+""I love these earbuds! They are so comfortable and the sound quality is amazing. I can't believe how much better they sound than my old earbuds. I would definitely recommend these to anyone looking for a great"
+Task and Problem Solving,Creative Problem Solving,7,Develop a marketing campaign for a new electric car.,,likert,google/gemma-2-2b_27,"
+
+The following data were taken from the financial statements of Gates Inc. for the current fiscal year. Assuming that long-term investments totaled $3,000,000 throughout the year and that total assets were$7,000,000 at the beginning of the current fiscal year, determine the (<em>b</em>) rate earned on stockholders’ equity. Round to one decimal place.
+
+$\begin{array}{lrrr} \text{Property, plant, and equipment (net)}&&&\underline{\underline{\$\hspace{5pt}3,200,000}}\\ \text{Liabilities:}\\ \hspace{10pt}\text{Current liabilities}&&\$\hspace{5pt}1,000,000\\ \hspace{10pt}\text{Mortgage note payable, 6\\\%, issued 2003, due 2019}&&\underline{\hspace{10pt}2,000,000}\\ \hspace{10pt}\text{Total liabilities}&&&\underline{\underline{\$\hspace{5pt}3,000,000}}\\ \text{Stockholders’ equity:}\\ \hspace{10pt}\text{Preferred \$10 stock, \$100 par (no change during year)}&&&\$\hspace{5pt}1,000,000\\ \hspace{10pt}\text{Common stock, \$10 par (no change during year)}&&&{2,000,000}\\ \text{Retained"
+Task and Problem Solving,Complex Problem Solving,8,Create a business plan for a sustainable food delivery service.,"Jake and Emma are entrepreneurs planning to launch a sustainable food delivery service called GreenEats. They aim to differentiate their service by focusing on eco-friendly practices, such as using electric delivery bikes, biodegradable packaging, and partnering with local organic farms. <br> Their target market includes environmentally conscious consumers who value sustainability and quality. They plan to offer a variety of meal options, including vegan, vegetarian, and locally-sourced meat dishes. <br> The opportunities for GreenEats include tapping into the growing demand for sustainable products and the convenience of food delivery. However, they must navigate risks such as higher operational costs due to sustainable practices, potential supply chain disruptions from local farms, and competition from established food delivery giants. <br> Jake and Emma need to outline a comprehensive business plan that addresses these nuances, balancing sustainability with profitability while ensuring consistent, high-quality service to attract and retain customers.",likert,google/gemma-2-2b_28,
+Task and Problem Solving,Expert Problem Solving,9,Develop a strategy to reduce plastic waste in a city.,,likert,google/gemma-2-2b_29,"
+
+The following table shows the results of measuring the percentages of four bases in the DNA of several different organisms. Some of the values are missing from the table. Use the data table to answer the question. $$ \begin{matrix} \text{ } & \text{Nitrogenous Bases (\\%)}\\ \text{Organism} & \text{A} & \text{G} & \text{T} & \text{C}\\ \text{Human} & \text{ } & \text{19.9} & \text{29.4} & \text{ }\\ \text{Chicken} & \text{28.8} & \text{ } & \text{ } & \text{12.5}\\ \text{Bacterium (S lutea)} & \text{13.4} & \text{ } & \text{ } & \text{ }\\ \end{matrix} $$ Two DNA strands of the chicken were separated. The base composition of just one of those strands was determined. Which of the following could you expect, based on the analysis of the single strand of DNA? A. The amount of A will equal the amount of T. B, The amount of C will equal the amount of G. C. The strand will contain equal amounts of A, T, C, and G. D. The four nitrogenous bases may have any value
+
+A 100-W lightbulb generates $95 \mathrm{~W}$ of heat, which is dissipated through a glass bulb that has a radius of $3.0 \mathrm{~cm}$ and"
