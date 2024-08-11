@@ -8,6 +8,7 @@ import accelerate
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from openai import OpenAI
 from hf_models_enum import HuggingFaceModels
+from data_frames import GenerateResponsesDataFrameHandler
 
 anthropic_models = {
     "Claude 3 Haiku": {"api_key": os.environ['ANTHROPIC_API_KEY'], "model": "claude-3-haiku"},
@@ -78,6 +79,9 @@ class CustomChatPipelineHuggingFace:
         # Clear GPU cache
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+   
+    def get_model_name(self):
+        return self.model.config._name_or_path
 
     def __call__(self, prompt, max_new_tokens=512):
         # Create the chat messages
@@ -120,9 +124,14 @@ class CustomChatPipelineHuggingFace:
 if __name__ == '__main__':
     print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
+    resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
     gemma_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Gemma_2_2B.value)
 
     for row in challenge_prompt_df.itertuples():
-        if row.Index == 2:
-            print("Response:", gemma_pipeline(row.prompt + "   " + row.context))
+        prompt_id = row.Index + get_model_name.get_model_name()
+        prompt_reponse = gemma_pipeline(row.prompt + "   " + row.context)
+        resposne_df.add(row, prompt_id, prompt_response)
+        print("Response:", resposne)
+
+    resposne_df.to_csv()
 
