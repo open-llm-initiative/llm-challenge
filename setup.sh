@@ -10,7 +10,13 @@ source venv/bin/activate
 
 # Step 3: Install dependencies from requirements.txt
 echo "Installing dependencies..."
-pip install -r requirements.txt
+if [ $# -ne 0  && $1 == "llm"]; then
+    pip install -r requirements_llm.txt
+    echo "installing python dependencies to use with CUDA"
+else   
+    pip install -r requirements.txt
+    echo "installing python dependencies to use with the web application"
+fi
 
 # Step 4: Configure environment variables for developer keys
 # Load environment variables from .env file
