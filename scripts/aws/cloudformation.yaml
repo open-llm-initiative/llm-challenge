@@ -9,10 +9,52 @@ Resources:
       BillingMode: PAY_PER_REQUEST # Consider using PAY_PER_REQUEST for more flexibility
       AttributeDefinitions:
         - AttributeName: prompt_id
-          AttributeType: N
+          AttributeType: S
       KeySchema:
         - AttributeName: prompt_id
           KeyType: HASH
+  ChallengesPromptsTableTest:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: challenge_prompts_test
+      BillingMode: PAY_PER_REQUEST # Consider using PAY_PER_REQUEST for more flexibility
+      AttributeDefinitions:
+        - AttributeName: prompt_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: prompt_id
+          KeyType: HASH
+  ChallengeResponsesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: challenge_responses
+      AttributeDefinitions:
+        - AttributeName: session_id
+          AttributeType: S
+        - AttributeName: prompt_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: session_id
+          KeyType: HASH
+        - AttributeName: prompt_id
+          KeyType: RANGE
       ProvisionedThroughput:
-        ReadCapacityUnits: 500
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 50
+  ChallengeResponsesTableTest:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: challenge_responses_test
+      AttributeDefinitions:
+        - AttributeName: session_id
+          AttributeType: S
+        - AttributeName: prompt_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: session_id
+          KeyType: HASH
+        - AttributeName: prompt_id
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
         WriteCapacityUnits: 5

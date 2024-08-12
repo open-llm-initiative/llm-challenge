@@ -6,6 +6,7 @@ import os
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = os.getenv("APP_SECRET_KEY", "A123B456C789D10")
+app.config['PERMANENT_SESSION_LIFETIME'] = 24*60*60
 
 def generate_random_string(length):
   """Generates a random string of specified length"""
@@ -40,4 +41,4 @@ def submission():
     return render_template('submission.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)   
+    app.run(debug=True) 
