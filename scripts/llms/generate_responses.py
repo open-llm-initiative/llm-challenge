@@ -14,13 +14,12 @@ from data_frames import GenerateResponsesDataFrameHandler
 from enum import Enum
 from botocore.exceptions import ClientError
 
-
 class HuggingFaceModels(Enum):
-    Qwen2_0_5B_Instruct =  "Qwen/Qwen2-0.5B-Instruct" 
-    Qwen2_1_5B_Instruct =  "Qwen/Qwen2-1.5B-Instruct"
+    #Qwen2_0_5B_Instruct =  "Qwen/Qwen2-0.5B-Instruct" 
+    #Qwen2_1_5B_Instruct =  "Qwen/Qwen2-1.5B-Instruct"
     Gemma_2_2B =  "google/gemma-2-2b" 
-    Qwen2_7B_Instruct = "Qwen/Qwen2-7B-Instruct" 
-    Phi_3_small_128k_instruct = "microsoft/Phi-3-small-128k-instruct"
+    #Qwen2_7B_Instruct = "Qwen/Qwen2-7B-Instruct" 
+    #Phi_3_small_128k_instruct = "microsoft/Phi-3-small-128k-instruct"
 
 #helper class to simplify pipeline creation and usage.
 class CustomChatPipelineHuggingFace:
@@ -35,7 +34,7 @@ class CustomChatPipelineHuggingFace:
             trust_remote_code=True
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token, trust_remote_code=True)
-        self.device = device
+        self.device = device if torch.cuda.is_available() else "cpu"
 
         # Define and set the chat template
         chat_template = """
@@ -94,10 +93,10 @@ class CustomChatPipelineHuggingFace:
         return response
 
 class APIModelsHelper():
-    model_call_dictionary = {}
+    model_dictionary = {}
 
     def get_models_dict(self):
-        return self.model_call_dictionary
+        return self.model_dictionary
 
     def call_model(self, model_name, prompt):
         callable_response_func = self.get_models_dict[model_name][0]
@@ -140,7 +139,7 @@ class APIModelsHelper():
             model=model_name,
             system = "You are a helpful assistant.",
             messages=[
-                         {"role": "user", "content": prompt}
+                    {"role": "user", "content": prompt}
                 ],
             max_tokens=512,
             stop_sequences=["\n\nHuman:", "\n\nAI:", "END_OF_TEXT"]
@@ -181,40 +180,45 @@ class APIModelsHelper():
         
         return response_text
 
-    model_call_dictionary['meta.llama3-1-70b-instruct-v1:0'] = [generate_response_from_aws, llama_prompt_formatter]
-    model_call_dictionary['mistral.mistral-large-2407-v1:0'] = [generate_response_from_aws, no_formatter]
-    model_call_dictionary['claude-3-5-sonnet-20240620'] = [generate_response_from_anthropic, no_formatter]
-    model_call_dictionary['claude-3-haiku-20240307'] = [generate_response_from_anthropic, no_formatter]
-    model_call_dictionary['gpt-3.5-turbo'] = [generate_response_from_openai, no_formatter]
-    model_call_dictionary['gpt-4o'] = [generate_response_from_openai, no_formatter]
+    model_dictionary['meta.llama3-1-70b-instruct-v1:0'] = [generate_response_from_aws, llama_prompt_formatter]
+    model_dictionary['mistral.mistral-large-2407-v1:0'] = [generate_response_from_aws, no_formatter]
+    model_dictionary['claude-3-5-sonnet-20240620'] = [generate_response_from_anthropic, no_formatter]
+    model_dictionary['claude-3-haiku-20240307'] = [generate_response_from_anthropic, no_formatter]
+    model_dictionary['gpt-3.5-turbo'] = [generate_response_from_openai, no_formatter]
+    model_dictionary['gpt-4o'] = [generate_response_from_openai, no_formatter]
 
-def generate_response_from_hugging_face_models():
-    return None
+def generate_response_from_hugging_face_models(challenge_df, response_df):
+    for model in list(HuggingFaceModels):
+        chat_pipeline = CustomChatPipelineHuggingFace(model_name=model.value)
+        
+        for index, row in challenge_df.iterrows():
+            prompt_to_llm = sanitize_challenge_prompt_df(row)
+            response = chat_pipeline(prompt_to_llm)
+            if response is None:
+                response = chat_pipeline(prompt_to_llm) # try again. smaller models sometimes choke
 
+            resposne_df.add(row, get_prompt_id(chat_pipeline.get_model_name(),index), response) 
+    
 def generate_responses_from_api_models(challenge_df, response_df):
     return None
 
-def sanatize_response_to_html():
-    return None
+def get_prompt_id(modelname, prompt_index):
+    return modelname + "_" + str(prompt_index)
 
-def get_df_for_generation():
+def sanitize_challenge_prompt_df(prompt_df_row):
+    prompt_to_llm = prompt_df_row.prompt
+    if prompt_df_row.context != "None":
+        prompt_to_llm+= " " + prompt_df_row.context
+
+    return prompt_to_llm
+
+def sanatize_response_to_html():
     return None
 
 if __name__ == '__main__':
     print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
     resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
-    gemma_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Gemma_2_2B.value)
-
-    for index, row in challenge_prompt_df.iterrows():
-        prompt_to_llm = row.prompt
-        if row.context != "None":
-            prompt_to_llm+= " " + row.context
-        
-        prompt_response = gemma_pipeline(prompt_to_llm)
-        prompt_id = gemma_pipeline.get_model_name() + "_" + str(index)
-        resposne_df.add(row, prompt_id, prompt_response)
-        print("Response:", prompt_id, prompt_response, "\n")
-
+    generate_response_from_hugging_face_models(challenge_df=challenge_prompt_df, response_df=resposne_df)
     resposne_df.to_csv()
 
