@@ -30,11 +30,11 @@ def getSeenPromptsCookie():
     return request.cookies.get("seen_prompts")
 
 def setSeenPromptsSeenCookie(response, current_prompt_id):
-    base64_encoded_list = []
+    base64_encoded_cookie_str = ""
     if getSeenPromptsCookie():
-       base64_encoded_list = getSeenPromptsCookie()
+       base64_encoded_cookie_str = getSeenPromptsCookie()
     
-    response.set_cookie("seen_prompts", decode_encode_base64_new_item_in_list_as_string(base64_encoded_list,current_prompt_id), max_age=60*60*24) 
+    response.set_cookie("seen_prompts", decode_encode_base64_new_item_in_list_as_string(base64_encoded_cookie_str,current_prompt_id), max_age=60*60*24) 
 
 def decode_encode_base64_new_item_in_list_as_string(list_as_encoded_base64_string, new_item):
     base64_decoded_list = base64.b64decode(list_as_encoded_base64_string)
