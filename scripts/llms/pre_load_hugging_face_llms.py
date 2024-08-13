@@ -1,6 +1,6 @@
 #This is a quick helper script to make sure there is enough space on the machine and all pre-requisites are installed to load hugging face models
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-from hf_models_enum import HuggingFaceModels
+from generate_reponses import HuggingFaceModels
 import torch
 import os
 
