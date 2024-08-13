@@ -20,7 +20,6 @@ openai_models = {
     "OpenAI GPT4-o": {"api_key": os.environ['OPENAI_API_KEY'], "model": "gpt-4o"}
 }
 
-
 def call_openai_model(model_name, prompt, context):
     client = OpenAI(
             api_key=openai_models[model_name]['api_key'],
@@ -90,7 +89,6 @@ class CustomChatPipelineHuggingFace:
             {"role": "user", "content": prompt}
         ]
 
-
         # Apply the chat template to the messages
         text = self.tokenizer.apply_chat_template(
             messages,
@@ -129,7 +127,7 @@ if __name__ == '__main__':
 
     for index, row in challenge_prompt_df.iterrows():
         prompt_to_llm = row.prompt
-        if not pd.isna(row.context):
+        if row.context != "None":
             prompt_to_llm+= " " + row.context
         
         prompt_response = gemma_pipeline(prompt_to_llm)
