@@ -9,12 +9,12 @@ class GenerateResponsesDataFrameHandler():
 
     def __init__(self, original_df):
         self.df = pd.DataFrame(columns=original_df.columns)
-        self.df['prompt_response_id'] = []
+        self.df['prompt_id'] = []
         self.df['generated_response'] = []
 
     def add(self, df_row, prompt_response_id, prompt_response):
         new_dict = df_row.to_dict()
-        new_dict['prompt_response_id'] = prompt_response_id
+        new_dict['prompt_id'] = prompt_response_id
         new_dict['generated_response'] = prompt_response
         new_df = pd.DataFrame(new_dict, index=[0])
         self.df = pd.concat([self.df, new_df], ignore_index=True)
