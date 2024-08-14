@@ -73,6 +73,7 @@ def submission():
         response = make_response(get_response_template_with_random_prompt('challenge.html',start_time))
         return response
     
+    #TODO: handle bad prompt_ids, or bad ratings, don't let the user mess that up
     rating = request.form['rating_for_prompt']
     start_time = request.form['time_start']
 
