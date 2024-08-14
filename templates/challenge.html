@@ -2,17 +2,8 @@
 {% block content %}
     <div class="header">
        <h2> Welcome to the Global LLM Challenge! 🦙</h2>
-       The first global study to under human satisfaction with AI responses. 💁🏾 <br> 
-       Help the world 🌎 Read the prompt (and any relevant context) and rate the response!<br>  
+       A simple study to under human satisfaction with AI responses. 💁🏾 <br> 
+       Plaese read the prompt below, and rate the assistant's response. Yours truly the 🌎<br>  
     </div>
-    <div class="container">
-        <div class="prompt-context">
-            <h2>Prompt 🚀  </h2>
-            <p>{{ prompt }}</p>
-            <h3>Context:</h3>
-            <p class="context-text">Last year, a similar mission encountered a severe meteor shower. The crew secured themselves and performed evasive maneuvers under mission control guidance. They used the spacecraft's thrusters to navigate through the meteor field while constantly adjusting their trajectory based on real-time data. Communication was critical, and the crew worked together to ensure the safety of the spacecraft. Despite the challenges, the mission was a success due to the crew's quick thinking and precise actions.</p>
-        </div>
-        {% include 'response_container.html' %}
-        {% include 'form.html' %}
-    </div>
+    {% include 'chat_container.html' %}
 {% endblock %}

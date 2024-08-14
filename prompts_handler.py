@@ -2,7 +2,7 @@ import boto3
 import pandas as pd
 import math
 import random
-from datetime import datetime
+import datetime
 from botocore.exceptions import ClientError
 
 prompts_table_name = "challenge_prompts"
@@ -16,8 +16,9 @@ class PromptDBHandler():
         #load all prompts and use them to serve
         self.dynamodb = boto3.resource('dynamodb')
         self.prod = prod
+        self.prompt_set = set()
     
-    def load_all_prompts_and_return_set(self):
+    def load_all_prompts(self):
         try:
             table_name = prompts_table_name if self.prod else prompts_table_name_test
             table = self.dynamodb.Table(table_name)
@@ -32,7 +33,7 @@ class PromptDBHandler():
             for prompt in loaded_prompts:
                 prompt_id_set.add(prompt['prompt_id'])
 
-            return prompt_id_set
+            self.prompt_set = prompt_id_set
         except (ClientError, Exception) as e:
             print(f"ERROR: Can't Load All Prompts . Reason: {e}")
 
@@ -52,9 +53,9 @@ class PromptDBHandler():
             print(f"Error getting item: {e}")
             return e
     
-    def get_random_prompt(self, prompt_set):
-        index = random.randint(0, len(prompt_set)-1)
-        list_of_prompts = list(prompt_set)
+    def get_random_prompt(self):
+        index = random.randint(0, len(self.prompt_set)-1)
+        list_of_prompts = list(self.prompt_set)
         return self.get_prompt(list_of_prompts[index])
 
     def load_challenge_responses_in_ddb_rom_csv(self, prod=False):
@@ -72,16 +73,17 @@ class PromptDBHandler():
 
     # Function to store an item in the DynamoDB table
     @staticmethod
-    def store_challenge_response(self, session_id, prompt_id, rating, timestamp=None, prod=False):
-        if timestamp is None:
-            timestamp = datetime.utcnow().isoformat()  # Generate a timestamp if not provided
+    def store_challenge_response(self, session_id, prompt_id, rating, submission_time=None, start_time_iso=None, prod=False):
+        if submission_time is None:
+            submission_time = datetime.datetime.now()  # Generate a timestamp if not provided
 
         # Create the item to store
         item = {
             'session_id': session_id,
             'prompt_id': prompt_id,
             'rating': rating,
-            'timestamp': timestamp
+            'submission_time': submission_time.isoformat(),
+            'start_time': start_time_iso
         }
 
         try:
@@ -96,8 +98,8 @@ class PromptDBHandler():
 
 if __name__ == '__main__':
     db_handler = PromptDBHandler()
-    db_handler.load_challenge_responses_in_ddb_rom_csv()
-    prompt_id_set = db_handler.load_all_prompts_and_return_set()
-    random_prompt = db_handler.get_random_prompt(prompt_id_set)
+    #db_handler.load_challenge_responses_in_ddb_rom_csv()
+    db_handler.load_all_prompts()
+    random_prompt = db_handler.get_random_prompt()
     print(random_prompt)
     

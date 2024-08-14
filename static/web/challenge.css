@@ -27,27 +27,44 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .chat {
     margin: 10px 0;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    border-radius: 8px;
+    background-color: #f1f1f1;
     text-align: left;
+    position: relative;
 }
-.chat  h2, .prompt-context h3 {
-    margin: 10px 0;
+
+.context-text {
+    margin-top: 15px;
+    padding: 10px;
+    border-left: 4px solid #007bff; /* A solid line to the left to emphasize the context */
+    background-color: #e9ecef; /* Light gray background to differentiate the context */
+    border-radius: 5px;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
 }
-.chat  p.context-text {
-    font-style: italic;
-    font-size: 14px; /* Slightly smaller font for context */
+
+.context-text b {
+    font-weight: bold;
+    color: #007bff; /* Use the same color as the border-left for a cohesive look */
 }
+
+.context-text p {
+    margin: 0;
+}
+
 .response_container {
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: left;
     align-self: flex-end;
     min-width: 75%;
