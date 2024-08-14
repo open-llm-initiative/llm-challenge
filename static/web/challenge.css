@@ -27,7 +27,7 @@ body {
     display: flex;
     flex-direction: column;
 }
-.prompt-context {
+.chat {
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #ddd;
@@ -35,11 +35,12 @@ body {
     background-color: #f9f9f9;
     text-align: left;
 }
-.prompt-context h2, .prompt-context h3 {
+.chat  h2, .prompt-context h3 {
     margin: 10px 0;
 }
-.prompt-context p.context-text {
+.chat  p.context-text {
     font-style: italic;
+    font-size: 14px; /* Slightly smaller font for context */
 }
 .response_container {
     margin: 10px 0;
@@ -205,7 +206,7 @@ body {
     .container {
         padding: 10px;
     }
-    .prompt-context, .response_container {
+    .chat, .response_container {
         padding: 8px;
         margin: 8px 0;
     }
