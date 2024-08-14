@@ -239,11 +239,10 @@ def __test_sanitize_response_to_html():
     return sanitize_response_to_html(response)
 
 if __name__ == '__main__':
-    
-    #print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
-    #challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
-    #esposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
+    print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
+    challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
+    esposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
 
-    #generate_response_from_hugging_face_models(challenge_df=challenge_prompt_df, response_df=resposne_df)
-    #resposne_df.to_csv()
+    generate_response_from_hugging_face_models(challenge_df=challenge_prompt_df, response_df=resposne_df)
+    resposne_df.to_csv()
 
