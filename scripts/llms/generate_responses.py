@@ -13,6 +13,7 @@ from openai import OpenAI
 from data_frames import GenerateResponsesDataFrameHandler
 from enum import Enum
 from botocore.exceptions import ClientError
+from logger import CloudWatchLogger
 
 class HuggingFaceModels(Enum):
     #Qwen2_0_5B_Instruct =  "Qwen/Qwen2-0.5B-Instruct" 
@@ -196,8 +197,9 @@ def generate_response_from_hugging_face_models(challenge_df, response_df):
             response = chat_pipeline(prompt_to_llm)
             if response is None:
                 response = chat_pipeline(prompt_to_llm) # try again. smaller models sometimes choke
-
-            resposne_df.add(row, get_prompt_id(chat_pipeline.get_model_name(),index), response) 
+            
+            response_in_html = sanitize_response_to_html(response=response)
+            resposne_df.add(row, get_prompt_id(chat_pipeline.get_model_name(),index), response_in_html) 
     
 def generate_responses_from_api_models(challenge_df, response_df):
     return None
@@ -212,13 +214,36 @@ def sanitize_challenge_prompt_df(prompt_df_row):
 
     return prompt_to_llm
 
-def sanatize_response_to_html():
-    return None
+#We need to convert the model responses to properly formatted HTML so that we can 
+def sanitize_response_to_html(response):
+    prompt = "Take the following text and make it html friendly. Only return the html in the response"
+    prompt_to_llm = f"{prompt}\n\n{response}"
+    sanitized_html_response = APIModelsHelper.generate_response_from_openai('gpt-4o', prompt_to_llm)
+    return sanitized_html_response
+
+def __test_sanitize_response_to_html():
+    response = r"""In the following sentences, underline the verb in parentheses that agrees with the collective noun. 
+
+                <strong>Example 1</strong>. The audience <em>(is, $\underline{\text{are}}$)</em> slowly finding their seats in the theater.
+
+                The jury <em>(is, are)</em> deliberating the case.
+
+                In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) good time.
+
+                The new movie <em>The Matrix</em> is <em>(real, really)</em> exciting.
+                                            
+                In the following sentence, underline the correct modifier from the pair given in parentheses. Example 1. Last weekend we had a (real, $\underline{\text{really}}$) busy weekend.
+
+                The new movie <em>The Matrix</em> is <em>(real, really)</em> exciting."""
+
+    return sanitize_response_to_html(response)
 
 if __name__ == '__main__':
-    print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
-    challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
-    resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
-    generate_response_from_hugging_face_models(challenge_df=challenge_prompt_df, response_df=resposne_df)
-    resposne_df.to_csv()
+    
+    #print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
+    #challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
+    #esposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
+
+    #generate_response_from_hugging_face_models(challenge_df=challenge_prompt_df, response_df=resposne_df)
+    #resposne_df.to_csv()
 
