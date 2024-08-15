@@ -104,7 +104,11 @@ def get_response_template_with_random_prompt(template_name, time_start=None):
         prompt_response = prompt_response[7:-4]
 
     return render_template(template_name, prompt_id=prompt_id, prompt=prompt_content, context=context_content, response=prompt_response, time_start=time_start.isoformat())
-    
+
+@app.before_request
+def initialize():
+    prompt_db_hanlder.load_all_prompts()   
+
 if __name__ == '__main__':
     prompt_db_hanlder.load_all_prompts()
     app.run(debug=True) 

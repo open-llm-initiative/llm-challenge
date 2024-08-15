@@ -57,3 +57,4 @@ uuid==1.30
 watchtower==3.2.0
 Werkzeug==3.0.3
 wheel==0.44.0
+python-dotenv

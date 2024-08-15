@@ -36,6 +36,7 @@ class PromptDBHandler():
             self.prompt_set = prompt_id_set
         except (ClientError, Exception) as e:
             print(f"ERROR: Can't Load All Prompts . Reason: {e}")
+            return e
 
     def get_prompt(self, prompt_id):
         try:
