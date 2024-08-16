@@ -16,11 +16,11 @@ from botocore.exceptions import ClientError
 from logger import CloudWatchLogger
 
 class HuggingFaceModels(Enum):
-    #Qwen2_0_5B_Instruct =  "Qwen/Qwen2-0.5B-Instruct" 
-    #Qwen2_1_5B_Instruct =  "Qwen/Qwen2-1.5B-Instruct"
+    Qwen2_0_5B_Instruct =  "Qwen/Qwen2-0.5B-Instruct" 
+    Qwen2_1_5B_Instruct =  "Qwen/Qwen2-1.5B-Instruct"
     Gemma_2_2B =  "google/gemma-2-2b" 
-    #Qwen2_7B_Instruct = "Qwen/Qwen2-7B-Instruct" 
-    #Phi_3_small_128k_instruct = "microsoft/Phi-3-small-128k-instruct"
+    Qwen2_7B_Instruct = "Qwen/Qwen2-7B-Instruct" 
+    Phi_3_small_128k_instruct = "microsoft/Phi-3-small-128k-instruct"
 
 #helper class to simplify pipeline creation and usage.
 class CustomChatPipelineHuggingFace:
@@ -56,32 +56,23 @@ class CustomChatPipelineHuggingFace:
     def get_model_name(self):
         return self.model.config._name_or_path
 
-    def __call__(self, prompt, max_new_tokens=340):
+    def __call__(self, prompt, max_new_tokens=340, temperature=1):
         # Create the chat messages
         messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech."},
             {"role": "user", "content": prompt}
         ]
 
-        # Apply the chat template to the messages
-        text = self.tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True
-        )
-        
-        #gemma_2_2B doesn't like the chat template.
-        if self.model.config._name_or_path == HuggingFaceModels.Gemma_2_2B.value:
-            text = prompt
-
         # Tokenize the input and create an attention mask
-        model_inputs = self.tokenizer([text], return_tensors="pt", padding=True).to(self.device)
+        model_inputs = self.tokenizer([prompt], return_tensors="pt", padding=True).to(self.device)
         
         # Generate the response using attention mask
         generated_ids = self.model.generate(
             model_inputs.input_ids,
             attention_mask=model_inputs.attention_mask,
-            max_new_tokens=max_new_tokens
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            do_sample=True
         )
         
         # Strip the input tokens from the generated response
@@ -127,7 +118,7 @@ class APIModelsHelper():
                     model=model_name,
                     temperature = 1,
                     messages=[
-                         {"role": "system", "content": "You are a helpful assistant."},
+                         {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech."},
                          {"role": "user", "content": prompt}
                 ]
         )
@@ -138,7 +129,7 @@ class APIModelsHelper():
         client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
         response = client.messages.create(
             model=model_name,
-            system = "You are a helpful assistant.",
+            system = "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech.",
             messages=[
                     {"role": "user", "content": prompt}
                 ],
@@ -188,6 +179,33 @@ class APIModelsHelper():
     model_dictionary['gpt-3.5-turbo'] = [generate_response_from_openai, no_formatter]
     model_dictionary['gpt-4o'] = [generate_response_from_openai, no_formatter]
 
+def get_prompt_id(modelname, prompt_index):
+    return modelname + "_" + str(prompt_index)
+
+def sanitize_to_html_and_trim(response):
+    response_in_html = sanitize_response_to_html(response=response) 
+
+    if response_in_html.startswith('```html\n'):
+        end_index = response_in_html.rfind('```')-len(response_in_html)
+        response_in_html = response_in_html[7:end_index]
+
+    
+    return response_in_html
+
+def sanitize_challenge_prompt_df(prompt_df_row):
+    prompt_to_llm = prompt_df_row.prompt
+    if prompt_df_row.context != "Empty":
+        prompt_to_llm+= " " + prompt_df_row.context
+
+    return prompt_to_llm
+
+#We need to convert the model responses to properly formatted HTML so that we can 
+def sanitize_response_to_html(response):
+    prompt = "The following is just text context for a website. Make the text content html friendly. Use only tags that encapsulate text like <p>, <em>, <u>, <br>, etc  "
+    prompt_to_llm = f"{prompt}\n\n{response}"
+    sanitized_html_response = APIModelsHelper.generate_response_from_openai('gpt-4o', prompt_to_llm)
+    return sanitized_html_response
+
 def generate_response_from_hugging_face_models(challenge_df, response_df):
     for model in list(HuggingFaceModels):
         chat_pipeline = CustomChatPipelineHuggingFace(model_name=model.value)
@@ -195,31 +213,31 @@ def generate_response_from_hugging_face_models(challenge_df, response_df):
         for index, row in challenge_df.iterrows():
             prompt_to_llm = sanitize_challenge_prompt_df(row)
             response = chat_pipeline(prompt_to_llm)
-            if response is None:
-                response = chat_pipeline(prompt_to_llm) # try again. smaller models sometimes choke
+            if response is None or response == "":
+                print("generating a response again")
+                response = chat_pipeline(prompt_to_llm, temperature=0.9) # try again. smaller models sometimes choke. wiggle temprature
             
-            response_in_html = sanitize_response_to_html(response=response)
-            resposne_df.add(row, get_prompt_id(chat_pipeline.get_model_name(),index), response_in_html) 
+            prompt_id = get_prompt_id(chat_pipeline.get_model_name(),index)
+            print(f"prompt_id: {prompt_id}\nresponse: {response}")
+            resposne_df.add(row, prompt_id, sanitize_to_html_and_trim(response)) 
+        
+        chat_pipeline.release()
     
 def generate_responses_from_api_models(challenge_df, response_df):
-    return None
+    api_model_helper = APIModelsHelper()
+    model_dict = api_model_helper.get_models_dict()
+    for model in list(model_dict):
+        callable_model = model_dict[model][0]
+        prompt_formatter = model_dict[model][1]
 
-def get_prompt_id(modelname, prompt_index):
-    return modelname + "_" + str(prompt_index)
-
-def sanitize_challenge_prompt_df(prompt_df_row):
-    prompt_to_llm = prompt_df_row.prompt
-    if prompt_df_row.context != "None":
-        prompt_to_llm+= " " + prompt_df_row.context
-
-    return prompt_to_llm
-
-#We need to convert the model responses to properly formatted HTML so that we can 
-def sanitize_response_to_html(response):
-    prompt = "Take the following text and make it html friendly. Only return the html in the response"
-    prompt_to_llm = f"{prompt}\n\n{response}"
-    sanitized_html_response = APIModelsHelper.generate_response_from_openai('gpt-4o', prompt_to_llm)
-    return sanitized_html_response
+        for index, row in challenge_df.iterrows():
+            prompt_to_llm = sanitize_challenge_prompt_df(row)
+            formatted_prompt_to_api = prompt_formatter(prompt_to_llm)
+            response = callable_model(model, formatted_prompt_to_api)
+            
+            prompt_id = get_prompt_id(model,index)
+            print(f"prompt_id: {prompt_id}\nresponse: {response}")
+            resposne_df.add(row, prompt_id,  sanitize_to_html_and_trim(response)) 
 
 def __test_sanitize_response_to_html():
     response = r"""In the following sentences, underline the verb in parentheses that agrees with the collective noun. 
@@ -239,10 +257,14 @@ def __test_sanitize_response_to_html():
     return sanitize_response_to_html(response)
 
 if __name__ == '__main__':
-    print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
-    esposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
+    resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
 
+    print("Starting repsponse generation. First step: load LLM responses API-based Models \n")
+    generate_responses_from_api_models(challenge_df=challenge_prompt_df, response_df=resposne_df)
+
+    print("Starting repsponse generation. First step: load LLM responses from OSS LLMs on HuggingFace \n")
     generate_response_from_hugging_face_models(challenge_df=challenge_prompt_df, response_df=resposne_df)
+
     resposne_df.to_csv()
 
