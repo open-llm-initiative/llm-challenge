@@ -60,7 +60,7 @@ class PromptDBHandler():
         return self.get_prompt(list_of_prompts[index])
 
     def load_challenge_responses_in_ddb_rom_csv(self, prod=False):
-        prompt_challenge_df = pd.read_csv('data/prompts_with_responses_llms.csv')
+        prompt_challenge_df = pd.read_csv('data/prompts_with_responses.csv')
         try:
             table_name = prompts_table_name if prod else prompts_table_name_test
             table = self.dynamodb.Table(table_name)
@@ -99,7 +99,7 @@ class PromptDBHandler():
 
 if __name__ == '__main__':
     db_handler = PromptDBHandler()
-    #db_handler.load_challenge_responses_in_ddb_rom_csv()
+    db_handler.load_challenge_responses_in_ddb_rom_csv()
     db_handler.load_all_prompts()
     random_prompt = db_handler.get_random_prompt()
     print(random_prompt)
