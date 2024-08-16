@@ -5,12 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      platforms:
-        - linux/amd64
     ports:
       - "8080:8080"
     env_file:
       - .env
-    environment:
-      - DEFAULT_REGION=us-west-2
-      - AWS_REGION=us-west-2

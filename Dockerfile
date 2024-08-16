@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8080
 
 # Default command to run your app
-CMD flask run --host=0.0.0. --port=${PORT:-8080}
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
