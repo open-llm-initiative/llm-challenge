@@ -8,6 +8,10 @@ body {
     margin: 0;
     padding: 20px;
     position: relative;
+    height: 100%; /* Ensure the body and html take up the full window height */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    
 }
 .header {
     text-align: center;
@@ -16,6 +20,7 @@ body {
     line-height: 1.5;
     font-family: Verdana;
 }
+
 .container {
     background-color: #fff;
     padding: 20px;
@@ -26,6 +31,8 @@ body {
     border: 1px solid #ddd;
     display: flex;
     flex-direction: column;
+    min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+    margin-bottom: 20px; /* Space for the footer */
 }
 
 .chat {
@@ -61,7 +68,7 @@ body {
 
 .response_container {
     margin: 10px 0;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -164,22 +171,37 @@ body {
 }
 
 .partnership-banner {
-    position: fixed;
-    text-align: right;
     bottom: 10px;
     right: 10px;
     color: black;
     padding: 10px 10px 10px 20px;
     border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
     max-width: 10%;
 }
 
-.partnership-banner img{
-    width: 12%; /* or any custom size */
-    height: 12%; 
-    padding: 5px 5px;
+footer {
+    background-color: #f9f9f9; /* Black background */
+    color: black; /* Text color */
+    padding: 5px 20px; /* Reduced padding to fit content within 30px height */
+    position: relative; /* Positioning relative to its normal flow */
+    clear: both; /* Ensure the footer stays at the bottom, after any floated content */
+    width: 100%; /* Full width of the page */
+    bottom: 0; /* Positioned at the bottom */
+    font-size: 14px; /* Font size */
+    border-radius: 5px 5px 0 0; /* Rounded top corners */
+    max-height: 40px; /* Maximum height of the footer */
+    display: flex; /* Flexbox for layout */
+    align-items: right; /* Vertically center the content */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.footer img {
+    max-height: auto; /* Make the images fit within the footer height */
+    height: auto; /* Ensure the image takes up the full height */
+    width: auto; /* Maintain the aspect ratio */
+    padding: 0 5px; /* Adjust padding as needed */
+    display: block; /* Ensure images behave like block elements */
 }
 
 .progress-container {
