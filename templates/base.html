@@ -8,6 +8,15 @@
     <link href="../static/web/challenge.css" rel="stylesheet" type="text/css" >
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" >
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0W63TY24BM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0W63TY24BM');
+</script>
 <body>
     {% block content %} {% endblock %}
     <div class="scroll-arrow hidden" id="scroll-arrow" onclick="scrollToBottom()">&#8595;</div>
