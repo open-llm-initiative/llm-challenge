@@ -14,7 +14,7 @@ The majority of LLM vendors are in a race with each other to one-up benchmarks l
 - [High-level Setup](#high-level-setup)
 - [Quality Curve Definition](#definitions)
 - [Model Selection](#model-selection)
-- [Model Selection](#task-selection)
+- [Task Selection](#task-selection)
 
 
 ## High-level setup
