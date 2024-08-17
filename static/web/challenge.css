@@ -35,14 +35,31 @@ body {
     margin-bottom: 20px; /* Space for the footer */
 }
 
+.human {
+    font-size: 30px;
+}
+
 .chat {
     margin: 10px 0;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 15px;
     background-color: #f1f1f1;
     text-align: left;
     position: relative;
+    max-width: 89%; /* Adjusts the width to look more like a message bubble */
+    word-wrap: break-word; /* Ensures text wraps within the bubble */
+}
+
+.chat::before {
+    content: "";
+    position: absolute;
+    top: 50%; /* Centers the pointer vertically */
+    left: -9px; /* Adjusts the horizontal alignment */
+    transform: translateY(-50%); /* Centers the pointer vertically relative to the chat bubble */
+    border: 8px solid transparent;
+    border-right-color: #f1f1f1; /* Matches the background color of the bubble */
+    border-left: 0;
 }
 
 .context-text {
@@ -70,12 +87,18 @@ body {
     margin: 10px 0;
     padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: left;
     align-self: flex-end;
     min-width: 75%;
     max-width: 75%;
+}
+
+.assistant {
+    text-align: right;
+    align-self: flex-end;
+    font-size: 30px;
 }
 
 .response{
@@ -170,40 +193,6 @@ body {
     display: none;
 }
 
-.partnership-banner {
-    bottom: 10px;
-    right: 10px;
-    color: black;
-    padding: 10px 10px 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    max-width: 10%;
-}
-
-footer {
-    background-color: #f9f9f9; /* Black background */
-    color: black; /* Text color */
-    padding: 5px 20px; /* Reduced padding to fit content within 30px height */
-    position: relative; /* Positioning relative to its normal flow */
-    clear: both; /* Ensure the footer stays at the bottom, after any floated content */
-    width: 100%; /* Full width of the page */
-    bottom: 0; /* Positioned at the bottom */
-    font-size: 14px; /* Font size */
-    border-radius: 5px 5px 0 0; /* Rounded top corners */
-    max-height: 40px; /* Maximum height of the footer */
-    display: flex; /* Flexbox for layout */
-    align-items: right; /* Vertically center the content */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-.footer img {
-    max-height: auto; /* Make the images fit within the footer height */
-    height: auto; /* Ensure the image takes up the full height */
-    width: auto; /* Maintain the aspect ratio */
-    padding: 0 5px; /* Adjust padding as needed */
-    display: block; /* Ensure images behave like block elements */
-}
-
 .progress-container {
     display: flex;
     gap: 12px;
@@ -241,7 +230,7 @@ footer {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 560px) {
     .container {
         padding: 10px;
     }

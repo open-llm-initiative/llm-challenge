@@ -1,6 +1,8 @@
 <div class="container">
+    <span class="human">🧑🏾</span>
     <div class="chat">
-        <h2>Human 🧑🏾</h2>{{ prompt }}
+
+        <div class="message">  {{prompt}}
         {% if context == "Empty" %}
             <br>
         {% else %}
@@ -8,6 +10,7 @@
                 <b>Use the following context to generate your response:</b><br><br>
                 {{ context | safe }}</p>
         {% endif %}
+        </div>
     </div>
     {% include 'response_container.html' %}
     {% include 'form.html' %}

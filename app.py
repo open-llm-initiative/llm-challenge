@@ -28,18 +28,6 @@ def setUserCookie(response):
 def getUserCookie():
     return request.cookies.get('challenge_cookie')
 
-#Get cookie that helps us understand which prompts the user has already seen
-def getSeenPromptsCookie():
-    return request.cookies.get("seen_prompts")
-
-#Set cookie to the list of prompts seen by the user
-def setSeenPromptsSeenCookie(response, current_prompt_id):
-    base64_encoded_cookie_str = ""
-    if getSeenPromptsCookie():
-       base64_encoded_cookie_str = getSeenPromptsCookie()
-    
-    response.set_cookie("seen_prompts", decode_encode_base64_new_item_in_list_as_string(base64_encoded_cookie_str,current_prompt_id), max_age=60*60*24*7) 
-
 def decode_encode_base64_new_item_in_list_as_string(list_as_encoded_base64_string, new_item):
     base64_decoded_list = base64.b64decode(list_as_encoded_base64_string)
     decoded_list = base64_decoded_list.decode('utf-8').split(',')
@@ -81,7 +69,6 @@ def submission():
     try:
         PromptDBHandler.store_challenge_response(prompt_db_hanlder, session_id=getUserCookie(), prompt_id=prompt_id, rating=rating, start_time_iso=start_time)
         response = make_response(get_response_template_with_random_prompt('submission.html'))
-        setSeenPromptsSeenCookie(response, prompt_id)
     except Exception as e:
         print(f"Error saving the response: {e}")
         
