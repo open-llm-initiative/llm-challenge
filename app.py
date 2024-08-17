@@ -26,23 +26,7 @@ def setUserCookie(response):
 
 #Get session cookier for user
 def getUserCookie():
-    return request.cookies.get('challenge_cookie')
-
-def decode_encode_base64_new_item_in_list_as_string(list_as_encoded_base64_string, new_item):
-    base64_decoded_list = base64.b64decode(list_as_encoded_base64_string)
-    decoded_list = base64_decoded_list.decode('utf-8').split(',')
-    decoded_list.append(str(new_item))
-    encoded_new_list = base64.b64encode(', '.join(decoded_list).encode('utf-8'))
-    return encoded_new_list.decode('utf-8')
-
-def __test__decode_encode_base64_new_item_in_list_as_string():
-    base64_encoded_list = "NCw1LDYsNw=="
-    base64_encoded_list_with_new_item = "NCwgNSwgNiwgNywgOA=="
-    new_list = __decode_encode_base64_new_item_in_list_as_string(base64_encoded_list, 8)
-    if base64_encoded_list_with_new_item == new_list:
-        return True
-    else: 
-        raise Exception 
+    return request.cookies.get('challenge_cookie') 
 
 @app.route('/')
 def index():
