@@ -31,7 +31,6 @@ body {
     border: 1px solid #ddd;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
     margin-bottom: 20px; /* Space for the footer */
 }
 
