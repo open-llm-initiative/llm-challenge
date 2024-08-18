@@ -18,6 +18,9 @@ class PromptDBHandler():
         self.prod = prod
         self.prompt_set = set()
     
+    def get_prompt_set(self):
+        return self.prompt_set
+
     def load_all_prompts(self):
         try:
             table_name = prompts_table_name if self.prod else prompts_table_name_test
@@ -54,11 +57,13 @@ class PromptDBHandler():
             print(f"Error getting item: {e}")
             return e
     
+    #helper method to get a random prompt for the user
     def get_random_prompt(self):
         index = random.randint(0, len(self.prompt_set)-1)
         list_of_prompts = list(self.prompt_set)
         return self.get_prompt(list_of_prompts[index])
 
+    #used to load in memory the prompts and responses, this should happen on app bootup
     def load_challenge_responses_in_ddb_rom_csv(self, prod=False):
         prompt_challenge_df = pd.read_csv('data/prompts_with_responses.csv')
         try:
@@ -72,7 +77,7 @@ class PromptDBHandler():
             print(f"Error putting items: {e}")
             return None
 
-    # Function to store an item in the DynamoDB table
+    # function to store an item in the DynamoDB table
     @staticmethod
     def store_challenge_response(self, session_id, prompt_id, rating, submission_time=None, start_time_iso=None, prod=False):
         if submission_time is None:
@@ -98,6 +103,7 @@ class PromptDBHandler():
             return e
 
 if __name__ == '__main__':
+    #convenience tests - but all tests are in the test directory
     db_handler = PromptDBHandler()
     db_handler.load_challenge_responses_in_ddb_rom_csv()
     db_handler.load_all_prompts()

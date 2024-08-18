@@ -24,10 +24,13 @@ function scrollToBottom() {
 
 function checkScroll() {
     const scrollArrow = document.getElementById('scroll-arrow');
-    if ((window.innerHeight + window.scrollY) + 50 < document.body.scrollHeight) {
-        scrollArrow.classList.remove('hidden');
-    } else {
+    const targetElement = document.getElementById('challenge-submit'); // Replace with your element's ID
+    const relative_bottom = targetElement.getBoundingClientRect().bottom;
+
+    if ((relative_bottom - 60) < window.innerHeight) {
         scrollArrow.classList.add('hidden');
+    } else {
+        scrollArrow.classList.remove('hidden')
     }
 }
 
@@ -41,7 +44,7 @@ function validateForm() {
 }
 
 window.addEventListener('resize', checkScroll);
-window.addEventListener('scroll', checkScroll);
+window.addEventListener('scroll', checkScroll); 
 document.addEventListener('DOMContentLoaded', checkScroll);
 
 document.addEventListener('DOMContentLoaded', () => {

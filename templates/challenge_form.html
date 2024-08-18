@@ -1,6 +1,6 @@
 <div class= "rating_form">
-<form id="rating_form" action="/submit" method="POST" onsubmit="return validateForm()">
-    <div style="margin-top:40px"><b>Please rate the AI Assistant's 🤖 response</b></div>
+<form id="rating_form" action="/challenge/submit" method="POST" onsubmit="return validateForm()">
+    <div style="margin-top:40px; font-size:18px"><b>Rate model 🤖 response 👇👇</b></div>
     <div class="rating">
         <input type="hidden" name="rating_for_prompt" id="rating_value" value="">
         <input type="hidden" name="prompt_id" id="prompt_id" value="{{ prompt_id }}">
@@ -11,6 +11,6 @@
         <span data-tooltip="Good" name="rating" value ="4" onclick="rate(4)">&#9734;</span>
         <span data-tooltip="Great" name="rating" value ="5" onclick="rate(5)">&#9734;</span>
     </div>
-    <button type="submit" class="submit">Submit</button>
+    <button type="submit" id="challenge-submit" class="submit">Submit</button>
 </form>
 </div>

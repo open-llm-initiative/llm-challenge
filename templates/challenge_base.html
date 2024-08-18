@@ -20,6 +20,7 @@
 <body>
     {% block content %} {% endblock %}
     <div class="scroll-arrow hidden" id="scroll-arrow" onclick="scrollToBottom()">&#8595;</div>
+    {% include 'acknowledge.html' %}
 </body>
 <script src="../static/web/challenge.js"></script>
 </html>
