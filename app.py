@@ -7,22 +7,36 @@ import base64
 import watchtower
 import common
 from common.prompts_handler import PromptDBHandler
+from common.logger import CloudWatchLogger
 from flask import Flask, render_template, session, request, make_response
 
+logger = None
+app_loaded = False
+prompt_db_hanlder = None
 app = Flask(__name__, static_folder='static', template_folder='templates')
-prompt_db_hanlder = PromptDBHandler()
 
 @app.before_request
 def initialize():
-    prompt_db_hanlder.load_all_prompts()   
+    global prompt_db_hanlder, logger, app_loaded 
+    if not app_loaded:
+        is_production_str = os.getenv("PRODUCTION_CHALLENGE", "false")
+        is_production = is_production_str.lower() == "true"
 
-#hsoted under the open-llm-initiative.com - therefore we need a home page for the intiative
+        prompt_db_hanlder = PromptDBHandler(is_production)
+        logger = CloudWatchLogger(is_production)
+        
+        prompt_db_hanlder.load_all_prompts() 
+        logger.info("Application Successfully Initiatilized")
+        app_loaded = True
+  
+#hosted under the open-llm-initiative.com - therefore we need a home page for the intiative
 @app.route('/')
 def index():
     start_time = datetime.datetime.now() #record the time we first showed the page. will use for analysis later.
     response = make_response(get_response_template_with_random_prompt('index.html',start_time))
     set_user_cookie(response)
-    
+
+    logger.info("Loaded the main Open LLM Initiative Page")
     return response
 
 #route to the callenge
@@ -31,7 +45,8 @@ def challenge():
     start_time = datetime.datetime.now() #record the time we first showed the page. will use for analysis later.
     response = make_response(get_response_template_with_random_prompt('challenge_index.html',start_time))
     set_user_cookie(response)
-    
+
+    logger.info(f"Loaded the main challenge page for {get_user_cookie()}")
     return response
 
 #route to a rating submission
@@ -48,6 +63,7 @@ def submission():
     if prompt_id not in prompt_id_set:
         start_time = datetime.datetime.now()
         response = make_response(get_response_template_with_random_prompt('challenge_error.html', start_time))
+        logger.error(f"No prompt-id set for {get_user_cookie()}")
         return response
         
     #check if we got a valid rating- user might be overiding form, in that case show error message
@@ -55,6 +71,7 @@ def submission():
     if rating not in {"1","2","3","4","5"}:
         start_time = datetime.datetime.now()
         response = make_response(get_response_template_with_random_prompt('challenge_error.html', start_time))
+        logger.error(f"No rating-id set for {prompt_id} for user {get_user_cookie()}")
         return response
 
 
@@ -64,9 +81,10 @@ def submission():
         PromptDBHandler.store_challenge_response(prompt_db_hanlder, session_id=get_user_cookie(), prompt_id=prompt_id, rating=rating, start_time_iso=start_time)
         response = make_response(get_response_template_with_random_prompt('challenge_submission.html'))
     except Exception as e:
-        print(f"Error saving the response: {e}")
+        logger.error(f"Error saving rating: {e}")
         return e
-        
+    
+    logger.info(f"Saved rating {rating} for {prompt_id} for user {get_user_cookie()}")
     return response
 
 #Helper method to render a response template with a new random prompt from DDB
@@ -104,5 +122,4 @@ def get_user_cookie():
     return request.cookies.get('challenge_cookie') 
 
 if __name__ == '__main__':
-    prompt_db_hanlder.load_all_prompts()
     app.run(debug=True) 

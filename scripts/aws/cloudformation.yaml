@@ -58,3 +58,26 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
+  ProdLogGroup:
+      Type: "AWS::Logs::LogGroup"
+      Properties:
+        LogGroupName: "challenge_prompts_log_group"
+        RetentionInDays: 14
+  ProdLogStream:
+      Type: "AWS::Logs::LogStream"
+      Properties:
+        LogGroupName: "challenge_prompts_log_group"
+        LogStreamName: "challenge_log_stream"
+      DependsOn: ProdLogGroup
+  TestLogGroup:
+    Type: "AWS::Logs::LogGroup"
+    Properties:
+      LogGroupName: "challenge_prompts_log_group_test"
+      RetentionInDays: 14
+  TestLogStream:
+    Type: "AWS::Logs::LogStream"
+    Properties:
+      LogGroupName: "challenge_prompts_log_group_test"
+      LogStreamName: "challenge_log_stream_test"
+    DependsOn: TestLogGroup
+

@@ -12,7 +12,7 @@ challenge_responses_table_name = "challenge_responses"
 challenge_respones_table_name_test = "challenge_responses_test"
 
 class PromptDBHandler():
-    def __init__(self, prod=False):
+    def __init__(self,looger,prod=False,):
         #load all prompts and use them to serve
         self.dynamodb = boto3.resource('dynamodb')
         self.prod = prod
@@ -38,9 +38,10 @@ class PromptDBHandler():
 
             self.prompt_set = prompt_id_set
         except (ClientError, Exception) as e:
-            print(f"ERROR: Can't Load All Prompts . Reason: {e}")
+            looger.info(f"ERROR: Can't Load All Prompts . Reason: {e}")
             return e
 
+    #get a prompt for a given prompt_id, if the prompt_id is valid. Else return empty iem
     def get_prompt(self, prompt_id):
         try:
             table_name = prompts_table_name if self.prod else prompts_table_name_test
@@ -54,7 +55,7 @@ class PromptDBHandler():
             item = response['Item']
             return item  
         except Exception as e:
-            print(f"Error getting item: {e}")
+            logger.error(f"Error getting item: {e}")
             return e
     
     #helper method to get a random prompt for the user
@@ -74,7 +75,7 @@ class PromptDBHandler():
                 table.put_item(Item=row.to_dict())
 
         except Exception as e:
-            print(f"Error putting items: {e}")
+            logger.error(f"Error putting items: {e}")
             return None
 
     # function to store an item in the DynamoDB table
@@ -99,8 +100,9 @@ class PromptDBHandler():
             # Store the item in DynamoDB
             table.put_item(Item=item)
         except Exception as e:
-            print(f"Error saving the response: {e}")
+            logger.error(f"Error saving the response: {e}")
             return e
+
 
 if __name__ == '__main__':
     #convenience tests - but all tests are in the test directory

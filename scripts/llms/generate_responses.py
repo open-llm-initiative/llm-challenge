@@ -56,7 +56,7 @@ class CustomChatPipelineHuggingFace:
     def get_model_name(self):
         return self.model.config._name_or_path
 
-    def __call__(self, prompt, max_new_tokens=340, temperature=1):
+    def __call__(self, prompt, max_new_tokens=500, temperature=1):
         # Create the chat messages
         messages = [
             {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech."},
