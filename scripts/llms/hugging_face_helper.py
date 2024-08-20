@@ -6,7 +6,7 @@ import accelerate
 import json
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-from api_models_helper import sanitize_response_to_html_and_trim, sanitize_challenge_prompt_df
+from api_models_helper import sanitize_response_to_html_and_trim, sanitize_challenge_prompt_df, get_prompt_id
 from data_frames import GenerateResponsesDataFrameHandler
 from enum import Enum
 
@@ -126,17 +126,17 @@ class CustomChatPipelineHuggingFace:
     @staticmethod
     def generate_responses(challenge_df, response_df):
         for model in list(HuggingFaceModels):
-            generate_response_from_hugging_face_model(challenge_df, response_df, model)
+            generate_response_from_hugging_enum(challenge_df, response_df, model)
 
 #generate response for a single HuggingFace model
-def generate_response_from_model_enum(challenge_df, response_df, model):
+def generate_response_from_hugging_enum(challenge_df, response_df, model):
     chat_pipeline = CustomChatPipelineHuggingFace(model_name=model.value)
     
     for index, row in challenge_df.iterrows():
-        response = generate_single_response_from_model_pipeline(pipeline=chat_pipeline, challenge_prompt_row=row)
+        response = generate_single_response_from_model_pipeline(chat_pipeline, challenge_prompt_row=row)
         prompt_id = get_prompt_id(chat_pipeline.get_model_name(),index)
         print(f"prompt_id: {prompt_id}\nresponse: {response}")
-        resposne_df.add(row, prompt_id, sanitize_response_to_html_and_trim(response)) 
+        response_df.add(row, prompt_id, sanitize_response_to_html_and_trim(response)) 
     
     chat_pipeline.release()
 
@@ -154,8 +154,8 @@ if __name__ == '__main__':
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
     resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
     
-    some_row = challenge_prompt_df.iloc[19]
-    print(f"test generation from {HuggingFaceModels.Gemma_2_2B_Instruct.value} for prompt: {some_row.prompt}")
+    some_row = challenge_prompt_df.iloc[0]
+    print(f"test generation from {HuggingFaceModels.Gemma_2_2B_Instruct.value} for prompt: {sanitize_challenge_prompt_df(some_row)}")
     some_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Gemma_2_2B_Instruct.value)
     print(generate_single_response_from_model_pipeline(some_pipeline, some_row))
 
