@@ -13,9 +13,9 @@ from enum import Enum
 class HuggingFaceModels(Enum):
     Qwen2_0_5B_Instruct =  "Qwen/Qwen2-0.5B-Instruct" 
     Qwen2_1_5B_Instruct =  "Qwen/Qwen2-1.5B-Instruct"
-    Gemma_2_2B =  "google/gemma-2-2b" 
+    Gemma_2_2B_Instruct =  "google/gemma-2b-it" 
     Qwen2_7B_Instruct = "Qwen/Qwen2-7B-Instruct" 
-    Phi_3_small_128k_instruct = "microsoft/Phi-3-small-128k-instruct"
+    Phi_3_small_8k_instruct = "microsoft/Phi-3-small-8k-instruct"
 
 class HuggingFaceModelGeneratonConfig():
     config = {}
@@ -35,19 +35,18 @@ class HuggingFaceModelGeneratonConfig():
         }
 
     #These are configurations that Phi suggests on HuggingFace - founder under the files/versions section of the model page
-    Phi_3_small_128k_instruct_config = {
+    Phi_3_small_8k_instruc_config = {
         "_from_model_config": True,
-        "bos_token_id": 1,
+        "bos_token_id": 100257,
         "eos_token_id": [
-            32000,
-            32001,
-            32007
+            100257,
+            100266
         ],
         "repetition_penalty": 1.1,
         "pad_token_id": 32000,
         "max_new_tokens":512,
         "do_sample": True,
-        "transformers_version": "4.41.2"
+        "transformers_version": "4.38.1"
         }
     
     #These are configurations that Gemma2-2B suggests on HuggingFace - founder under the files/versions section of the model page
@@ -65,8 +64,8 @@ class HuggingFaceModelGeneratonConfig():
     config[HuggingFaceModels.Qwen2_0_5B_Instruct.value] = Qwen_Generation_Config.copy()
     config[HuggingFaceModels.Qwen2_1_5B_Instruct.value] = Qwen_Generation_Config.copy()
     config[HuggingFaceModels.Qwen2_7B_Instruct.value] = Qwen_Generation_Config.copy()
-    config[HuggingFaceModels.Phi_3_small_128k_instruct.value]=Phi_3_small_128k_instruct_config.copy()
-    config[HuggingFaceModels.Gemma_2_2B.value]=Gemma_2_2B_config.copy()
+    config[HuggingFaceModels.Phi_3_small_8k_instruct.value]=Phi_3_small_8k_instruc_config.copy()
+    config[HuggingFaceModels.Gemma_2_2B_Instruct.value]=Gemma_2_2B_config.copy()
 
 #helper class to simplify pipeline creation and usage.
 class CustomChatPipelineHuggingFace:
@@ -84,14 +83,6 @@ class CustomChatPipelineHuggingFace:
         self.device = device if torch.cuda.is_available() else "cpu"
         self.config = HuggingFaceModelGeneratonConfig.config[model_name]
 
-        # Define and set the chat template
-        chat_template = """
-        <|system|> {system} <|endoftext|>
-        <|user|> {user} <|endoftext|>
-        <|assistant|>
-        """
-        self.tokenizer.chat_template = chat_template
-
     def release(self):
         del self.model
         del self.tokenizer
@@ -102,21 +93,25 @@ class CustomChatPipelineHuggingFace:
    
     def get_model_name(self):
         return self.model.config._name_or_path
+    
+    def get_chat_template_text(self, prompt):
+        if (self.get_model_name() == HuggingFaceModels.Gemma_2_2B_Instruct.value):
+            return prompt
+        else:
+            # Create the chat messages
+            messages = [
+                {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech."},
+                {"role": "user", "content": prompt}
+            ]
+
+            return self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
     def __call__(self, prompt):
-        # Create the chat messages
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech."},
-            {"role": "user", "content": prompt}
-        ]
+        model_inputs = self.tokenizer([self.get_chat_template_text(prompt)], return_tensors="pt").to(self.device)
 
-        # Tokenize the input and create an attention mask
-        model_inputs = self.tokenizer([prompt], return_tensors="pt", padding=True).to(self.device)
-        generation_config = self.config
-        
         # Generate the response using attention mask
         generated_ids = self.model.generate(
-            input_ids=model_inputs.input_ids, attention_mask=model_inputs.attention_mask, **generation_config
+            input_ids=model_inputs.input_ids, attention_mask=model_inputs.attention_mask, **self.config
         )
         
         # Strip the input tokens from the generated response
@@ -159,9 +154,9 @@ if __name__ == '__main__':
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
     resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
     
-    some_row = challenge_prompt_df.iloc[10]
-    print(f"test generation from {HuggingFaceModels.Phi_3_small_128k_instruct.value} and for prompt: {some_row.prompt}")
-    some_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Phi_3_small_128k_instruct.value)
+    some_row = challenge_prompt_df.iloc[19]
+    print(f"test generation from {HuggingFaceModels.Gemma_2_2B_Instruct.value} for prompt: {some_row.prompt}")
+    some_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Gemma_2_2B_Instruct.value)
     print(generate_single_response_from_model_pipeline(some_pipeline, some_row))
 
     some_pipeline.release()
