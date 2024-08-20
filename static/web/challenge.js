@@ -58,3 +58,29 @@ document.addEventListener('DOMContentLoaded', () => {
         checkScroll(); //if the page size increases because we are displaying the prompt, we need to show the scroll-arrow again. 
     }, 1500); // 1500 milliseconds = 1.5 seconds
 });
+
+$(document).ready(function() {
+    $('#subscribe-btn').on('click', function() {
+        var email = $('#email-input').val();
+        
+        if (email === "") {
+            alert("Please enter an email address.");
+            return;
+        }
+        
+        $.ajax({
+            url: '/subscribe',  // Replace with your server endpoint
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ email: email }),
+            success: function(response) {
+                $('#subscribe-btn').text('Subscribed').addClass('subscribed').prop('disabled', true);
+                $('#email-input').val('');  // Clear the input field
+                $('#email-input').attr('placeholder', 'You have successfully subscribed!');
+            },
+            error: function(xhr, status, error) {
+                alert('Subscription failed: ' + error);
+            }
+        });
+    });
+});

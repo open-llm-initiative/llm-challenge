@@ -34,6 +34,49 @@ body {
     margin-bottom: 20px; /* Space for the footer */
 }
 
+.subscribe-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #4CAF50;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    max-width: 510px; /* Expanded max-width to give more space */
+    width:100%;
+}
+
+/* Email input styling */
+#email-input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex-grow: 2; /* Increased from 1 to 2 to make it larger */
+    min-width: 0; /* Prevents input from overflowing in flex container */
+}
+
+/* Subscribe button styling */
+#subscribe-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 0; /* Remove default button border-radius */
+    transition: background-color 0.3s ease;
+}
+
+#subscribe-btn.subscribed {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Button hover effect */
+#subscribe-btn:hover {
+    background-color: #45a049;
+}
+
 .acknowledge {
     font-family: 'Open Sans', sans-serif;
     background-color: #fff;
@@ -262,5 +305,20 @@ body {
     .rating span {
         font-size: 20px;
         margin: 0 3px;
+    }
+
+    .subscribe-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #subscribe-btn {
+        width: 100%;
+        border-radius: 0 0 5px 5px;
+    }
+
+    #email-input {
+        border-radius: 5px 5px 0 0;
+        padding: 15px;
     }
 }

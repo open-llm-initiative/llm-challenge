@@ -65,7 +65,7 @@ class PromptDBHandler():
         return self.get_prompt(list_of_prompts[index])
 
     #used to load in memory the prompts and responses, this should happen on app bootup
-    def load_challenge_responses_in_ddb_rom_csv(self, prod=False):
+    def load_challenge_responses_in_ddb_from_csv(self, prod=False):
         prompt_challenge_df = pd.read_csv('data/prompts_with_responses.csv')
         try:
             table_name = prompts_table_name if prod else prompts_table_name_test
@@ -107,7 +107,7 @@ class PromptDBHandler():
 if __name__ == '__main__':
     #convenience tests - but all tests are in the test directory
     db_handler = PromptDBHandler()
-    db_handler.load_challenge_responses_in_ddb_rom_csv()
+    db_handler.load_challenge_responses_in_ddb_from_csv()
     db_handler.load_all_prompts()
     random_prompt = db_handler.get_random_prompt()
     print(random_prompt)

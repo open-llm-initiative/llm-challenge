@@ -80,4 +80,30 @@ Resources:
       LogGroupName: "challenge_prompts_log_group_test"
       LogStreamName: "challenge_log_stream_test"
     DependsOn: TestLogGroup
+  EmailAddressesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: subscribe
+      AttributeDefinitions:
+        - AttributeName: email_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email_id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+  TestEmailAddressesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: subscribe_test
+      AttributeDefinitions:
+        - AttributeName: email_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email_id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
 
