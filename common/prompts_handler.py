@@ -3,7 +3,13 @@ import pandas as pd
 import math
 import random
 import datetime
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from botocore.exceptions import ClientError
+from common.logger import CloudWatchLogger
 
 prompts_table_name = "challenge_prompts"
 prompts_table_name_test = "challenge_prompts_test"
@@ -11,12 +17,15 @@ prompts_table_name_test = "challenge_prompts_test"
 challenge_responses_table_name = "challenge_responses"
 challenge_respones_table_name_test = "challenge_responses_test"
 
+
+
 class PromptDBHandler():
-    def __init__(self,looger,prod=False,):
+    def __init__(self,logger, prod=False):
         #load all prompts and use them to serve
         self.dynamodb = boto3.resource('dynamodb')
         self.prod = prod
         self.prompt_set = set()
+        self.logger = logger
     
     def get_prompt_set(self):
         return self.prompt_set
@@ -38,7 +47,7 @@ class PromptDBHandler():
 
             self.prompt_set = prompt_id_set
         except (ClientError, Exception) as e:
-            looger.info(f"ERROR: Can't Load All Prompts . Reason: {e}")
+            self.logger.info(f"ERROR: Can't Load All Prompts . Reason: {e}")
             return e
 
     #get a prompt for a given prompt_id, if the prompt_id is valid. Else return empty iem
@@ -55,7 +64,7 @@ class PromptDBHandler():
             item = response['Item']
             return item  
         except Exception as e:
-            logger.error(f"Error getting item: {e}")
+            self.logger.error(f"Error getting item: {e}")
             return e
     
     #helper method to get a random prompt for the user
@@ -66,7 +75,7 @@ class PromptDBHandler():
 
     #used to load in memory the prompts and responses, this should happen on app bootup
     def load_challenge_responses_in_ddb_from_csv(self, prod=False):
-        prompt_challenge_df = pd.read_csv('data/prompts_with_responses.csv')
+        prompt_challenge_df = pd.read_csv('../data/prompts_with_responses.csv')
         try:
             table_name = prompts_table_name if prod else prompts_table_name_test
             table = self.dynamodb.Table(table_name)
@@ -75,7 +84,7 @@ class PromptDBHandler():
                 table.put_item(Item=row.to_dict())
 
         except Exception as e:
-            logger.error(f"Error putting items: {e}")
+            self.logger.error(f"Error putting items: {e}")
             return None
 
     # function to store an item in the DynamoDB table
@@ -100,13 +109,18 @@ class PromptDBHandler():
             # Store the item in DynamoDB
             table.put_item(Item=item)
         except Exception as e:
-            logger.error(f"Error saving the response: {e}")
             return e
 
+def running_in_prod():
+     is_production_str = os.getenv("PRODUCTION_CHALLENGE", "false")
+     return is_production_str.lower() == "true"
 
 if __name__ == '__main__':
-    #convenience tests - but all tests are in the test directory
-    db_handler = PromptDBHandler()
+    #convenience tests - but all tests shuld move to test directory
+    is_production = running_in_prod()
+    logger = CloudWatchLogger(is_production)
+    db_handler = PromptDBHandler(logger, prod=is_production)
+
     db_handler.load_challenge_responses_in_ddb_from_csv()
     db_handler.load_all_prompts()
     random_prompt = db_handler.get_random_prompt()

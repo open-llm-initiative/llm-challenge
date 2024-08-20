@@ -61,8 +61,9 @@ def initialize():
     global prompt_db_hanlder, logger, app_loaded 
     if not app_loaded:
         is_production = running_in_prod()
-        prompt_db_hanlder = PromptDBHandler(is_production)
         logger = CloudWatchLogger(is_production)
+        prompt_db_hanlder = PromptDBHandler(logger, is_production)
+
         
         prompt_db_hanlder.load_all_prompts() 
         logger.info("Application Successfully Initiatilized")
