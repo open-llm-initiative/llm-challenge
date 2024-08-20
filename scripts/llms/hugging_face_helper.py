@@ -34,15 +34,7 @@ class HuggingFaceModelGeneratonConfig():
         "transformers_version": "4.37.0"
         }
 
-    Qwen2_0_5B_Instruct = Qwen_Generation_Config.copy()
-    Qwen2_1_5B_Instruct = Qwen_Generation_Config.copy()
-    Qwen2_7B_Instruct = Qwen_Generation_Config.copy()
-
-    config[HuggingFaceModels.Qwen2_0_5B_Instruct.value] = Qwen2_0_5B_Instruct
-    config[HuggingFaceModels.Qwen2_1_5B_Instruct.value] = Qwen2_1_5B_Instruct
-    config[HuggingFaceModels.Qwen2_7B_Instruct.value] = Qwen2_7B_Instruct
-
-    #These are configurations that Phir suggests on HuggingFace - founder under the files/versions section of the model page
+    #These are configurations that Phi suggests on HuggingFace - founder under the files/versions section of the model page
     Phi_3_small_128k_instruct_config = {
         "_from_model_config": True,
         "bos_token_id": 1,
@@ -51,13 +43,30 @@ class HuggingFaceModelGeneratonConfig():
             32001,
             32007
         ],
+        "repetition_penalty": 1.1,
         "pad_token_id": 32000,
         "max_new_tokens":512,
+        "do_sample": True,
         "transformers_version": "4.41.2"
         }
+    
+    #These are configurations that Gemma2-2B suggests on HuggingFace - founder under the files/versions section of the model page
+    Gemma_2_2B_config = {
+        "_from_model_config": True,
+        "bos_token_id": 2,
+        "eos_token_id": 1,
+        "pad_token_id": 0,
+        "max_new_tokens":512,
+        "repetition_penalty": 1.1,
+        "do_sample": True,
+        }
 
-    Phi_3_small_128k_instruct = Phi_3_small_128k_instruct_config.copy
-    config[HuggingFaceModels.Phi_3_small_128k_instruct.value]=Phi_3_small_128k_instruct
+
+    config[HuggingFaceModels.Qwen2_0_5B_Instruct.value] = Qwen_Generation_Config.copy()
+    config[HuggingFaceModels.Qwen2_1_5B_Instruct.value] = Qwen_Generation_Config.copy()
+    config[HuggingFaceModels.Qwen2_7B_Instruct.value] = Qwen_Generation_Config.copy()
+    config[HuggingFaceModels.Phi_3_small_128k_instruct.value]=Phi_3_small_128k_instruct_config.copy()
+    config[HuggingFaceModels.Gemma_2_2B.value]=Gemma_2_2B_config.copy()
 
 #helper class to simplify pipeline creation and usage.
 class CustomChatPipelineHuggingFace:
@@ -118,6 +127,7 @@ class CustomChatPipelineHuggingFace:
         # Decode the generated response
         response = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0] 
         return response
+
     @staticmethod
     def generate_responses(challenge_df, response_df):
         for model in list(HuggingFaceModels):
@@ -141,7 +151,7 @@ def generate_single_response_from_model_pipeline(chat_pipeline, challenge_prompt
     response = chat_pipeline(prompt_to_llm)
     if response is None or response == "":
         print("generating a response again")
-        response = chat_pipeline(prompt_to_llm) # try again. smaller models sometimes choke. wiggle temprature
+        response = chat_pipeline(prompt_to_llm) # try again. smaller models sometimes choke.
     
     return response
 
@@ -149,7 +159,10 @@ if __name__ == '__main__':
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
     resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
     
-    print(f"test generation from {HuggingFaceModels.Qwen2_0_5B_Instruct.value}")
-    first_row = challenge_prompt_df.head(1).iloc[0]
-    qwen_05B_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Qwen2_0_5B_Instruct.value)
-    print(generate_single_response_from_model_pipeline(qwen_05B_pipeline, first_row))
+    some_row = challenge_prompt_df.iloc[10]
+    print(f"test generation from {HuggingFaceModels.Phi_3_small_128k_instruct.value} and for prompt: {some_row.prompt}")
+    some_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Phi_3_small_128k_instruct.value)
+    print(generate_single_response_from_model_pipeline(some_pipeline, some_row))
+
+    some_pipeline.release()
+
