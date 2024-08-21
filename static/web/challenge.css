@@ -293,7 +293,7 @@ body {
 @media (max-width: 600px) {
     .container {
         padding: 10px;
-        max-width: 85%;
+        max-width: 90%;
     }
     .chat, .response_container {
         padding: 8px;
