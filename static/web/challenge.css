@@ -290,9 +290,10 @@ body {
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
     .container {
-        padding: 24px;
+        padding: 10px;
+        max-width: 85%;
     }
     .chat, .response_container {
         padding: 8px;
@@ -308,16 +309,17 @@ body {
     }
 
     .subscribe-wrapper {
-        flex-direction: column;
         align-items: stretch;
+        max-width: 415px;
     }
 
     #subscribe-btn {
-        width: 100%;
+        width: 40%;
         border-radius: 0 0 5px 5px;
     }
 
     #email-input {
+        width: 100%;
         border-radius: 5px 5px 0 0;
         padding: 15px;
     }
