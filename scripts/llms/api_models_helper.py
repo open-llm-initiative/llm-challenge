@@ -52,7 +52,7 @@ class APIModelsHelper():
             "prompt": prompt,
             "temperature": 1,
             "top_p":0.9,
-            "max_gen_len": 512,
+            "max_gen_len": 1024,
         }
 
     def mistral_native_config(self, prompt):
@@ -60,7 +60,7 @@ class APIModelsHelper():
             "prompt": prompt,
             "temperature": 1,
             "top_p":0.9,
-            "max_tokens": 512,
+            "max_tokens": 1024,
         }
 
     def generate_response_from_openai_internal(self, model_definition, prompt):
@@ -74,7 +74,7 @@ class APIModelsHelper():
         response = client.chat.completions.create(
                     model=model_name,
                     temperature = 0.9,
-                    max_tokens = 512,
+                    max_tokens = 1024,
                     messages=[
                          {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech."},
                          {"role": "user", "content": prompt}
@@ -96,7 +96,7 @@ class APIModelsHelper():
                     {"role": "user", "content": prompt}
                 ],
             stop_sequences=["\n\nHuman:", "\n\nAI:", "END_OF_TEXT"],
-            max_tokens = 512,
+            max_tokens = 1024,
             temperature = 0.9
         )
         return ''.join([block.text for block in response.content if block.type == 'text'])

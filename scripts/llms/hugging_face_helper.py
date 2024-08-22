@@ -30,7 +30,7 @@ class HuggingFaceModelGeneratonConfig():
         "temperature": 0.7,
         "top_p": 0.8,
         "top_k": 20,
-        "max_new_tokens":512,
+        "max_new_tokens":1024,
         "transformers_version": "4.37.0"
         }
 
@@ -44,7 +44,7 @@ class HuggingFaceModelGeneratonConfig():
         ],
         "repetition_penalty": 1.1,
         "pad_token_id": 32000,
-        "max_new_tokens":512,
+        "max_new_tokens":1024,
         "do_sample": True,
         "transformers_version": "4.38.1"
         }
@@ -55,7 +55,7 @@ class HuggingFaceModelGeneratonConfig():
         "bos_token_id": 2,
         "eos_token_id": 1,
         "pad_token_id": 0,
-        "max_new_tokens":512,
+        "max_new_tokens":1024,
         "repetition_penalty": 1.1,
         "do_sample": True,
         }
@@ -96,11 +96,11 @@ class CustomChatPipelineHuggingFace:
     
     def get_chat_template_text(self, prompt):
         if (self.get_model_name() == HuggingFaceModels.Gemma_2_2B_Instruct.value):
-            return prompt
+            return "generate a response for the following prompt:" + prompt
         else:
             # Create the chat messages
             messages = [
-                {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech."},
+                {"role": "system", "content": "You are a helpful assistant. Don't say anything that's harmeful or that which would be considered hatespeech. Always generate a response"},
                 {"role": "user", "content": prompt}
             ]
 
@@ -144,9 +144,11 @@ def generate_response_from_hugging_enum(challenge_df, response_df, model):
 def generate_single_response_from_model_pipeline(chat_pipeline, challenge_prompt_row):
     prompt_to_llm = sanitize_challenge_prompt_df(challenge_prompt_row)
     response = chat_pipeline(prompt_to_llm)
-    if response is None or response == "":
+    gen_counter =0
+    while (response is None or response == "") and gen_counter <=1000: #strange,but sometimes the smaller models don't produce any result
         print("generating a response again")
         response = chat_pipeline(prompt_to_llm) # try again. smaller models sometimes choke.
+        gen_counter +=1
     
     return response
 
@@ -154,9 +156,9 @@ if __name__ == '__main__':
     challenge_prompt_df = pd.read_csv('../../data/challenge_setup.csv')
     resposne_df = GenerateResponsesDataFrameHandler(challenge_prompt_df)
     
-    some_row = challenge_prompt_df.iloc[0]
-    print(f"test generation from {HuggingFaceModels.Gemma_2_2B_Instruct.value} for prompt: {sanitize_challenge_prompt_df(some_row)}")
-    some_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Gemma_2_2B_Instruct.value)
+    some_row = challenge_prompt_df.iloc[26]
+    print(f"test generation from {HuggingFaceModels.Phi_3_small_8k_instruct.value} for prompt: {sanitize_challenge_prompt_df(some_row)}")
+    some_pipeline = CustomChatPipelineHuggingFace(model_name=HuggingFaceModels.Phi_3_small_8k_instruct.value)
     print(generate_single_response_from_model_pipeline(some_pipeline, some_row))
 
     some_pipeline.release()
