@@ -74,10 +74,10 @@ class PromptDBHandler():
         return self.get_prompt(list_of_prompts[index])
 
     #used to load in memory the prompts and responses, this should happen on app bootup
-    def load_challenge_responses_in_ddb_from_csv(self, prod=False):
+    def load_challenge_responses_in_ddb_from_csv(self):
         prompt_challenge_df = pd.read_csv('../data/prompts_with_responses.csv')
         try:
-            table_name = prompts_table_name if prod else prompts_table_name_test
+            table_name = prompts_table_name if self.prod else prompts_table_name_test
             table = self.dynamodb.Table(table_name)
             
             for index, row in prompt_challenge_df.iterrows():
@@ -89,7 +89,7 @@ class PromptDBHandler():
 
     # function to store an item in the DynamoDB table
     @staticmethod
-    def store_challenge_response(self, session_id, prompt_id, rating, submission_time=None, start_time_iso=None, prod=False):
+    def store_challenge_response(self, session_id, prompt_id, rating, submission_time=None, start_time_iso=None):
         if submission_time is None:
             submission_time = datetime.datetime.now()  # Generate a timestamp if not provided
 
@@ -103,7 +103,7 @@ class PromptDBHandler():
         }
 
         try:
-            table_name = challenge_responses_table_name if prod else challenge_respones_table_name_test
+            table_name = challenge_responses_table_name if self.prod else challenge_respones_table_name_test
             table = self.dynamodb.Table(table_name)
 
             # Store the item in DynamoDB

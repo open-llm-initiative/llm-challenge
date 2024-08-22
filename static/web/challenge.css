@@ -85,6 +85,8 @@ body {
     padding: 20px;
     max-width: 48rem;
     width:100%;
+    border: 1px solid #ddd;
+    border-radius: 15px;
 }
 
 .sponsor-image-about img{
@@ -107,7 +109,7 @@ body {
     background-color: #f1f1f1;
     text-align: left;
     position: relative;
-    max-width: 89%; /* Adjusts the width to look more like a message bubble */
+    max-width: 92%; /* Adjusts the width to look more like a message bubble */
     word-wrap: break-word; /* Ensures text wraps within the bubble */
 }
 
@@ -151,8 +153,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: left;
     align-self: flex-end;
-    min-width: 75%;
-    max-width: 75%;
+    min-width: 92%;
+    max-width: 92%;
 }
 
 .assistant {
@@ -295,6 +297,12 @@ body {
         padding: 10px;
         max-width: 90%;
     }
+
+    .acknowledge {
+        padding: 10px;
+        max-width: 90%;
+    }
+
     .chat, .response_container {
         padding: 8px;
         margin: 8px 0;
