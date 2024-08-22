@@ -78,6 +78,7 @@ class PromptDBHandler():
         prompt_challenge_df = pd.read_csv('../data/prompts_with_responses.csv')
         try:
             table_name = prompts_table_name if self.prod else prompts_table_name_test
+            print(f"Using tabl: {table_name}")
             table = self.dynamodb.Table(table_name)
             
             for index, row in prompt_challenge_df.iterrows():
