@@ -34,6 +34,19 @@ body {
     margin-bottom: 20px; /* Space for the footer */
 }
 
+.index-container{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(62, 54, 54, 0.1);
+    max-width: 40rem;
+    width: 100%;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* Space for the footer */
+}
+
 .subscribe-wrapper {
     display: flex;
     align-items: center;
@@ -84,6 +97,18 @@ body {
     margin: 0;
     padding: 20px;
     max-width: 48rem;
+    width:100%;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.index-acknowledge {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    max-width: 35rem;
     width:100%;
     border: 1px solid #ddd;
     border-radius: 15px;
