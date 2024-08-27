@@ -1,7 +1,5 @@
 # The Global LLM Challenge
-Thise repository hosts code for the global LLM challenge
-
-A first of its kind internet-scale study that aims to answer two questions: a) is there a point on a quality curve above which additional gains in LLM response quality don’t lead to increased user satisfaction? and b) is there a similar point on a quality curve below which user satisfaction is considered undesirable? 
+Thise repository hosts code for ["The LLM challenge"](https://open-llm-initiative.com/challenge). A first of its kind internet-scale study that aims to answer two questions: a) is there a point on a quality curve above which additional gains in LLM response quality don’t lead to increased user satisfaction? and b) is there a similar point on a quality curve below which user satisfaction is considered undesirable? 
 
 
 The majority of LLM vendors are in a race with each other to one-up benchmarks like MMLU, MTBench, HellowSwag etc - designed and rated primarily by human experts. But as LLMs get deployed in applications for end users and productivity workers, there hasn’t been a clear effort to study the impact of marginal improvements in quality as perceived by every-day users (not experts). 
